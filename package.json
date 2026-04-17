@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "scrape:standings": "tsx scripts/scrape-standings.ts",
-    "scrape:schedule": "tsx scripts/scrape-schedule.ts"
+    "scrape:schedule": "tsx scripts/scrape-schedule.ts",
+    "packet:stats": "tsx scripts/generate-stats-packet.ts"
   },
   "dependencies": {
     "next": "16.2.4",

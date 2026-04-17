@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdSlot } from "@/components/AdSlot";
 
 const sections = [
   { href: "/standings", title: "Standings", blurb: "Championship points across every MotoAmerica class." },
@@ -11,62 +12,40 @@ const sections = [
 export default function Home() {
   return (
     <>
-      <header id="navigation" className="p-navigation">
-        <div className="p-navigation__row">
-          <div className="p-navigation__banner">
-            <div className="p-navigation__tagged-logo">
-              <Link className="p-navigation__link" href="/">
-                <span className="p-navigation__logo-title">Double Long Lap</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main>
-        <section className="p-strip">
-          <div className="row">
-            <div className="col-8">
-              <h1 className="p-heading--1">The MotoAmerica fan hub.</h1>
-              <p className="p-heading--4 u-text-muted">
-                Standings, schedule, results, rider profiles, and venue guides — all in one place.
-                Free, fan-built, and growing with the sport.
-              </p>
-              <p>
-                <span className="p-chip">
-                  <span className="p-chip__value">Newsletter signup coming soon</span>
-                </span>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="p-strip is-shallow">
-          <div className="row">
-            {sections.map((s) => (
-              <div key={s.href} className="col-4">
-                <Link href={s.href} className="p-card--highlighted" style={{ display: "block" }}>
-                  <h3 className="p-card__title">{s.title} →</h3>
-                  <p>{s.blurb}</p>
-                </Link>
-              </div>
-            ))}
-          </div>
-        </section>
-      </main>
-
-      <footer className="p-strip--dark is-shallow">
+      <section className="p-strip">
         <div className="row">
           <div className="col-8">
-            <p>Double Long Lap — an independent MotoAmerica fan project.</p>
-          </div>
-          <div className="col-4 u-align--right">
+            <h1 className="p-heading--1">The MotoAmerica fan hub.</h1>
+            <p className="p-heading--4 u-text-muted">
+              Standings, schedule, results, rider profiles, and venue guides — all in one place.
+              Free, fan-built, and growing with the sport.
+            </p>
             <p>
-              <small>Not affiliated with MotoAmerica.</small>
+              <span className="p-chip">
+                <span className="p-chip__value">Newsletter signup coming soon</span>
+              </span>
             </p>
           </div>
         </div>
-      </footer>
+      </section>
+
+      <section className="p-strip is-shallow">
+        <div className="row">
+          <div className="col-12">
+            <AdSlot placement="home-top" size="leaderboard" />
+          </div>
+        </div>
+        <div className="row">
+          {sections.map((s) => (
+            <div key={s.href} className="col-4">
+              <Link href={s.href} className="p-card--highlighted" style={{ display: "block" }}>
+                <h3 className="p-card__title">{s.title} →</h3>
+                <p>{s.blurb}</p>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </section>
     </>
   );
 }

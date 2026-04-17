@@ -1,5 +1,20 @@
 import Link from "next/link";
 import { AdSlot } from "@/components/AdSlot";
+import { JsonLd } from "@/components/JsonLd";
+
+const siteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Double Long Lap",
+  url: "https://doublelonglap.com",
+  description:
+    "Standings, schedule, results, rider profiles, venue guides, and stats for MotoAmerica fans.",
+  publisher: {
+    "@type": "Organization",
+    name: "Double Long Lap",
+    url: "https://doublelonglap.com",
+  },
+};
 
 const sections = [
   { href: "/standings", title: "Standings", blurb: "Championship points across every MotoAmerica class." },
@@ -12,6 +27,7 @@ const sections = [
 export default function Home() {
   return (
     <>
+      <JsonLd data={siteJsonLd} />
       <section className="p-strip">
         <div className="row">
           <div className="col-8">

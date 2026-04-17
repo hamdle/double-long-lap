@@ -16,6 +16,30 @@ export const metadata: Metadata = {
   description:
     "Standings, schedule, results, rider profiles, venue guides, and stats for MotoAmerica fans.",
   metadataBase: new URL("https://doublelonglap.com"),
+  applicationName: "Double Long Lap",
+  authors: [{ name: "Double Long Lap" }],
+  keywords: [
+    "MotoAmerica",
+    "motorcycle racing",
+    "Superbike",
+    "Supersport",
+    "standings",
+    "schedule",
+    "rider profiles",
+  ],
+  openGraph: {
+    type: "website",
+    siteName: "Double Long Lap",
+    locale: "en_US",
+    url: "https://doublelonglap.com",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 const navLinks = [

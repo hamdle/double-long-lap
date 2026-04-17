@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AffiliateBlock } from "@/components/AffiliateBlock";
+import { JsonLd } from "@/components/JsonLd";
 import { getAllRiders, getRider } from "@/lib/data";
 
 export async function generateStaticParams() {
@@ -23,8 +24,19 @@ export default async function RiderProfilePage(props: PageProps<"/riders/[slug]"
   const rider = await getRider(slug);
   if (!rider) notFound();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: rider.name,
+    url: `https://doublelonglap.com/riders/${rider.slug}`,
+    jobTitle: "Motorcycle Racer",
+    knowsAbout: "MotoAmerica",
+    ...(rider.bike ? { affiliation: { "@type": "Organization", name: rider.bike } } : {}),
+  };
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <section className="p-strip">
         <div className="row">
           <div className="col-8">

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/JsonLd";
 import { getSchedule, getStandings, getVenue } from "@/lib/data";
 import { slugify } from "@/lib/slug";
 import { hasTravelGuide } from "@/lib/travel-guides";
@@ -36,8 +37,31 @@ export default async function RaceWeekendPage(props: PageProps<"/schedule/[event
   if (!event) notFound();
   const standings = await getStandings();
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    name: event.title,
+    startDate: event.start_date,
+    endDate: event.end_date,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: {
+      "@type": "Place",
+      name: event.location,
+      address: event.location,
+    },
+    url: `https://doublelonglap.com/schedule/${event.event_slug}`,
+    sport: "Motorcycle racing",
+    organizer: {
+      "@type": "Organization",
+      name: "MotoAmerica",
+      url: "https://www.motoamerica.com/",
+    },
+  };
+
   return (
     <>
+      <JsonLd data={jsonLd} />
       <section className="p-strip">
         <div className="row">
           <div className="col-8">

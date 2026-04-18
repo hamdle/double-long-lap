@@ -1,9 +1,15 @@
 import { ImageResponse } from "next/og";
-import { getVenue } from "@/lib/data";
+import { getSchedule, getVenue } from "@/lib/data";
 
 export const alt = "MotoAmerica race weekend";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+  const data = await getSchedule();
+  return data.events.map((e) => ({ eventSlug: e.event_slug }));
+}
 
 function formatDateRange(start: string, end: string): string {
   const s = new Date(`${start}T00:00:00`);
@@ -17,8 +23,9 @@ function formatDateRange(start: string, end: string): string {
   return `${month} ${s.getDate()} – ${endMonth} ${e.getDate()}, ${year}`;
 }
 
-export default async function Image({ params }: { params: { eventSlug: string } }) {
-  const event = await getVenue(params.eventSlug);
+export default async function Image({ params }: { params: Promise<{ eventSlug: string }> }) {
+  const { eventSlug } = await params;
+  const event = await getVenue(eventSlug);
 
   return new ImageResponse(
     (
@@ -35,7 +42,7 @@ export default async function Image({ params }: { params: { eventSlug: string } 
         }}
       >
         <div style={{ fontSize: 28, letterSpacing: 2, opacity: 0.8 }}>
-          RACE WEEKEND · ROUND {event?.order ?? "?"}
+          {`RACE WEEKEND · ROUND ${event?.order ?? "?"}`}
         </div>
         <div
           style={{

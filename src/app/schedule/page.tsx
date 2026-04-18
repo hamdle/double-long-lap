@@ -6,8 +6,6 @@ export const metadata = {
   description: "The 2026 MotoAmerica calendar with countdown to the next round.",
 };
 
-export const dynamic = "force-dynamic";
-
 type EventState = "past" | "live" | "upcoming";
 
 function stateOf(event: ScheduleEvent, today: Date): EventState {

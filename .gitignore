@@ -40,5 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# scraper snapshots — regenerate with `npm run scrape:*`
-/scripts/output/
+# scraper snapshots — JSON is committed so CI can build; keep internal artifacts out
+/scripts/output/*
+!/scripts/output/standings.json
+!/scripts/output/schedule.json

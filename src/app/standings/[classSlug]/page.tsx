@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { CLASS_NOTES } from "@/lib/class-notes";
 import { getClassStandings, getStandings } from "@/lib/data";
 
 export async function generateStaticParams() {
@@ -23,6 +24,7 @@ export default async function ClassStandingsPage(
   const { classSlug } = await props.params;
   const cls = await getClassStandings(classSlug);
   if (!cls) notFound();
+  const note = CLASS_NOTES[classSlug];
 
   return (
     <>
@@ -51,6 +53,22 @@ export default async function ClassStandingsPage(
           </div>
         </div>
       </section>
+
+      {note ? (
+        <section className="p-strip is-shallow">
+          <div className="row">
+            <div className="col-10">
+              <aside
+                className="p-notification--information"
+                role="complementary"
+                aria-label="Class note"
+              >
+                <div className="p-notification__content">{note}</div>
+              </aside>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="p-strip is-shallow">
         <div className="row">

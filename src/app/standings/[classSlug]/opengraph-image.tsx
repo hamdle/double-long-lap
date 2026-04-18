@@ -1,12 +1,19 @@
 import { ImageResponse } from "next/og";
-import { getClassStandings } from "@/lib/data";
+import { getClassStandings, getStandings } from "@/lib/data";
 
 export const alt = "MotoAmerica class standings";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const dynamic = "force-static";
 
-export default async function Image({ params }: { params: { classSlug: string } }) {
-  const cls = await getClassStandings(params.classSlug);
+export async function generateStaticParams() {
+  const data = await getStandings();
+  return data.classes.map((c) => ({ classSlug: c.class_slug }));
+}
+
+export default async function Image({ params }: { params: Promise<{ classSlug: string }> }) {
+  const { classSlug } = await params;
+  const cls = await getClassStandings(classSlug);
   const leader = cls?.top_riders[0];
 
   return new ImageResponse(
@@ -24,7 +31,7 @@ export default async function Image({ params }: { params: { classSlug: string } 
         }}
       >
         <div style={{ fontSize: 28, letterSpacing: 2, opacity: 0.8 }}>
-          STANDINGS · {cls?.season_year ?? ""}
+          {`STANDINGS · ${cls?.season_year ?? ""}`}
         </div>
         <div style={{ fontSize: 88, fontWeight: 700, marginTop: 16 }}>
           {cls?.class_name ?? "Class"}
@@ -43,7 +50,7 @@ export default async function Image({ params }: { params: { classSlug: string } 
             </div>
             <div style={{ fontSize: 64, fontWeight: 700 }}>{leader.name}</div>
             <div style={{ fontSize: 32 }}>
-              {leader.points} pts{leader.bike ? ` · ${leader.bike}` : ""}
+              {`${leader.points} pts${leader.bike ? ` · ${leader.bike}` : ""}`}
             </div>
           </div>
         ) : null}

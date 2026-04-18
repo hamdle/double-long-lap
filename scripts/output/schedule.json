@@ -1,0 +1,98 @@
+{
+  "series": "motoamerica",
+  "season_year": 2026,
+  "source_url": "https://www.motoamerica.com/wp-content/Calendar/",
+  "scraped_at": "2026-04-17T16:18:14.689Z",
+  "events": [
+    {
+      "order": 1,
+      "event_slug": "daytona200",
+      "title": "The 84th Daytona 200",
+      "location": "Daytona International Speedway, FL",
+      "start_date": "2026-03-05",
+      "end_date": "2026-03-07",
+      "details_url": "https://motoamerica.com/daytona-200/"
+    },
+    {
+      "order": 2,
+      "event_slug": "atlanta",
+      "title": "MotoAmerica Superbikes at Road Atlanta",
+      "location": "Michelin Raceway Road Atlanta, GA",
+      "start_date": "2026-04-17",
+      "end_date": "2026-04-19",
+      "details_url": "https://motoamerica.com/atlanta"
+    },
+    {
+      "order": 3,
+      "event_slug": "barber",
+      "title": "MotoAmerica Superbikes at Barber",
+      "location": "Barber Motorsports Park, AL",
+      "start_date": "2026-05-15",
+      "end_date": "2026-05-17",
+      "details_url": "https://motoamerica.com/alabama"
+    },
+    {
+      "order": 4,
+      "event_slug": "america",
+      "title": "MotoAmerica Superbikes at Road America",
+      "location": "Road America, WI",
+      "start_date": "2026-05-29",
+      "end_date": "2026-05-31",
+      "details_url": "https://motoamerica.com/road-america"
+    },
+    {
+      "order": 5,
+      "event_slug": "ridge",
+      "title": "MotoAmerica Superbikes at Ridge Motorsports Park",
+      "location": "Ridge Motorsports Park, WA",
+      "start_date": "2026-06-26",
+      "end_date": "2026-06-28",
+      "details_url": "https://motoamerica.com/ridge"
+    },
+    {
+      "order": 6,
+      "event_slug": "laguna",
+      "title": "MotoAmerica Superbike Speedfest at Monterey Presented By Law Tigers",
+      "location": "WeatherTech Raceway Laguna Seca, CA",
+      "start_date": "2026-07-10",
+      "end_date": "2026-07-12",
+      "details_url": "https://motoamerica.com/laguna-seca"
+    },
+    {
+      "order": 7,
+      "event_slug": "ohio",
+      "title": "MotoAmerica Superbikes at Mid-Ohio",
+      "location": "Mid-Ohio Sports Car Course, OH",
+      "start_date": "2026-07-31",
+      "end_date": "2026-08-02",
+      "details_url": "https://motoamerica.com/mid-ohio"
+    },
+    {
+      "order": 8,
+      "event_slug": "vir",
+      "title": "MotoAmerica Superbikes at VIRginia",
+      "location": "Virginia Int'l Raceway, VA",
+      "start_date": "2026-08-14",
+      "end_date": "2026-08-16",
+      "details_url": "https://motoamerica.com/virginia"
+    },
+    {
+      "order": 9,
+      "event_slug": "cota",
+      "title": "MotoAmerica Superbikes at Texas",
+      "location": "Circuit of The Americas, TX",
+      "start_date": "2026-09-11",
+      "end_date": "2026-09-13",
+      "details_url": "https://motoamerica.com/cota/"
+    },
+    {
+      "order": 10,
+      "event_slug": "newJersey",
+      "title": "MotoAmerica Superbikes at New Jersey",
+      "location": "New Jersey Motorsports Park, NJ",
+      "start_date": "2026-09-25",
+      "end_date": "2026-09-27",
+      "details_url": "https://motoamerica.com/new-jersey"
+    }
+  ]
+}

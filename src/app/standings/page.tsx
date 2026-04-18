@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Sponsorship } from "@/components/Sponsorship";
-import { getStandings } from "@/lib/data";
+import { getStandings, type ClassStandings } from "@/lib/data";
 
 export const metadata = {
   title: "Standings",
@@ -14,8 +14,45 @@ function formatScrapedAt(iso: string): string {
   });
 }
 
+function ClassCard({ cls }: { cls: ClassStandings }) {
+  const leader = cls.top_riders[0];
+  return (
+    <div className="col-6">
+      <Link
+        href={`/standings/${cls.class_slug}`}
+        className="p-card--highlighted"
+        style={{ display: "block" }}
+      >
+        <h3 className="p-card__title">{cls.class_name} →</h3>
+        <p className="u-text-muted">
+          <small>
+            {cls.season_year} · Round {cls.round_number} · {cls.track_code}
+          </small>
+        </p>
+        {leader ? (
+          <p>
+            <strong>{leader.isChampion ? "Champion:" : "Leader:"}</strong> {leader.name}
+            {leader.isChampion ? " 🏆" : ""} — {leader.points} pts
+            {leader.bike ? ` (${leader.bike})` : ""}
+          </p>
+        ) : (
+          <p className="u-text-muted">No standings yet.</p>
+        )}
+      </Link>
+    </div>
+  );
+}
+
 export default async function StandingsPage() {
   const data = await getStandings();
+  const bySeason = new Map<number, ClassStandings[]>();
+  for (const c of data.classes) {
+    const list = bySeason.get(c.season_year) ?? [];
+    list.push(c);
+    bySeason.set(c.season_year, list);
+  }
+  const seasons = Array.from(bySeason.keys()).sort((a, b) => b - a);
+  const currentSeason = seasons[0];
 
   return (
     <>
@@ -42,39 +79,51 @@ export default async function StandingsPage() {
             <Sponsorship section="standings" />
           </div>
         </div>
-        <div className="row">
-          {data.classes.map((c) => {
-            const leader = c.top_riders[0];
-            return (
-              <div key={c.class_slug} className="col-6">
-                <Link
-                  href={`/standings/${c.class_slug}`}
-                  className="p-card--highlighted"
-                  style={{ display: "block" }}
-                >
-                  <h3 className="p-card__title">
-                    {c.class_name} →
-                  </h3>
+      </section>
+
+      {seasons.map((year) => {
+        const classes = bySeason.get(year) ?? [];
+        const isCurrent = year === currentSeason;
+        return (
+          <section key={year} className="p-strip is-shallow">
+            <div className="row">
+              <div className="col-12">
+                <h2 className="p-heading--2">
+                  {year}
+                  {isCurrent ? (
+                    <>
+                      {" "}
+                      <span className="p-chip">
+                        <span className="p-chip__value">Current season</span>
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      <span className="u-text-muted" style={{ fontSize: "1rem" }}>
+                        — final standings
+                      </span>
+                    </>
+                  )}
+                </h2>
+                {!isCurrent ? (
                   <p className="u-text-muted">
                     <small>
-                      {c.season_year} · Round {c.round_number} · {c.track_code}
+                      Classes that haven&rsquo;t raced yet in {currentSeason}. These show the
+                      final {year} standings until the new season&rsquo;s first round is scored.
                     </small>
                   </p>
-                  {leader ? (
-                    <p>
-                      <strong>Leader:</strong> {leader.name}
-                      {leader.isChampion ? " 🏆" : ""} — {leader.points} pts
-                      {leader.bike ? ` (${leader.bike})` : ""}
-                    </p>
-                  ) : (
-                    <p className="u-text-muted">No standings yet.</p>
-                  )}
-                </Link>
+                ) : null}
               </div>
-            );
-          })}
-        </div>
-      </section>
+            </div>
+            <div className="row">
+              {classes.map((c) => (
+                <ClassCard key={c.class_slug} cls={c} />
+              ))}
+            </div>
+          </section>
+        );
+      })}
     </>
   );
 }

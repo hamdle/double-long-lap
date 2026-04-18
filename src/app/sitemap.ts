@@ -4,6 +4,8 @@ import { TRAVEL_GUIDE_SLUGS } from "@/lib/travel-guides";
 
 const BASE = "https://doublelonglap.com";
 
+export const dynamic = "force-static";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [standings, schedule, riders] = await Promise.all([
     getStandings(),

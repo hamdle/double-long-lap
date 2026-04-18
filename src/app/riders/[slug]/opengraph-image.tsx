@@ -1,12 +1,19 @@
 import { ImageResponse } from "next/og";
-import { getRider } from "@/lib/data";
+import { getAllRiders, getRider } from "@/lib/data";
 
 export const alt = "MotoAmerica rider profile";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+export const dynamic = "force-static";
 
-export default async function Image({ params }: { params: { slug: string } }) {
-  const rider = await getRider(params.slug);
+export async function generateStaticParams() {
+  const riders = await getAllRiders();
+  return riders.map((r) => ({ slug: r.slug }));
+}
+
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const rider = await getRider(slug);
   const top = rider?.appearances[0];
 
   return new ImageResponse(
@@ -37,7 +44,7 @@ export default async function Image({ params }: { params: { slug: string } }) {
             }}
           >
             <div style={{ fontSize: 32 }}>
-              P{top.position} · {top.class_name} · {top.points} pts ({top.season_year})
+              {`P${top.position} · ${top.class_name} · ${top.points} pts (${top.season_year})`}
             </div>
             {rider?.bike ? (
               <div style={{ fontSize: 28, opacity: 0.75 }}>{rider.bike}</div>

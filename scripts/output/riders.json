@@ -1,0 +1,217 @@
+{
+  "series": "motoamerica",
+  "source_url": "https://www.motoamerica.com/riders/",
+  "scraped_at": "2026-04-21T04:01:28.915Z",
+  "riders": [
+    {
+      "slug": "andrew-lee",
+      "number": 14,
+      "name": "Andrew Lee",
+      "team": "Real Steel Honda",
+      "hometown": "Clovis, California",
+      "nationality": "United States",
+      "bike": "Honda CBR1000RR",
+      "bike_manufacturer": "Honda",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "ashton-yates",
+      "number": 46,
+      "name": "Ashton Yates",
+      "team": "Jones Honda",
+      "hometown": "Milledgeville, Georgia",
+      "nationality": "United States",
+      "bike": "Honda CBR1000RR-R Fireblade SP",
+      "bike_manufacturer": "Honda",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "benjamin-smith",
+      "number": 78,
+      "name": "Benjamin Smith",
+      "team": "Flo4Law/Warhorse Ducati Factory Racing",
+      "hometown": "Glenmoore, Pennsylvania",
+      "nationality": "United States",
+      "bike": "Ducati Panigale V4 R",
+      "bike_manufacturer": "Ducati",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "bobby-fong",
+      "number": 50,
+      "name": "Bobby Fong",
+      "team": "Attack Performance Progressive Yamaha Racing",
+      "hometown": "Stockton, California",
+      "nationality": "United States",
+      "bike": "Yamaha YZF-R1",
+      "bike_manufacturer": "Yamaha",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "brandon-paasch",
+      "number": 66,
+      "name": "Brandon Paasch",
+      "team": "Vision Wheel M4 ECSTAR Suzuki",
+      "hometown": "Freehold, New Jersey",
+      "nationality": "United States",
+      "bike": "Suzuki GSX-R1000R",
+      "bike_manufacturer": "Suzuki",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "cameron-beaubier",
+      "number": 1,
+      "name": "Cameron Beaubier",
+      "team": "Warhorse HSBK Ducati Flo4Law",
+      "hometown": "Lincoln, California",
+      "nationality": "United States",
+      "bike": "Ducati Panigale V4 R",
+      "bike_manufacturer": "Ducati",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "cameron-petersen",
+      "number": 45,
+      "name": "Cameron Petersen",
+      "team": "Wrench Motorcycles",
+      "hometown": "Johannesburg, South Africa",
+      "nationality": "South Africa",
+      "bike": "Ducati Panigale V4 R",
+      "bike_manufacturer": "Ducati",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "danilo-lewis",
+      "number": 94,
+      "name": "Danilo Lewis",
+      "team": "Team Brazil",
+      "hometown": "Osasco, Brazil",
+      "nationality": "Brazil",
+      "bike": "Honda CBR1000RR-R-SP",
+      "bike_manufacturer": "Honda",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "hayden-gillim",
+      "number": 69,
+      "name": "Hayden Gillim",
+      "team": "Real Steel Honda & J&P Cycles/Motul/Vance & Hines Factory Indian",
+      "hometown": "Philpot, Kentucky",
+      "nationality": "United States",
+      "bike": "Honda CBR1000RR-R SP & Indian Challenger",
+      "bike_manufacturer": "Honda",
+      "class_slugs": [
+        "mission-king-of-the-baggers",
+        "superbike"
+      ]
+    },
+    {
+      "slug": "jayson-uribe",
+      "number": 36,
+      "name": "Jayson Uribe",
+      "team": "OrangeCat Racing",
+      "hometown": "Napa Valley, California",
+      "nationality": "United States",
+      "bike": "BMW M 1000 RR",
+      "bike_manufacturer": "BMW",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "jd-beach",
+      "number": 95,
+      "name": "JD Beach",
+      "team": "Attack Performance Progressive Yamaha Racing",
+      "hometown": "Philpot, Kentucky",
+      "nationality": "United States",
+      "bike": "Yamaha YZF-R1",
+      "bike_manufacturer": "Yamaha",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "mathew-scholtz",
+      "number": 11,
+      "name": "Mathew Scholtz",
+      "team": "Strack Racing",
+      "hometown": "Durban, South Africa",
+      "nationality": "South Africa",
+      "bike": "Yamaha YZF-R1",
+      "bike_manufacturer": "Yamaha",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "max-flinders",
+      "number": 88,
+      "name": "Max Flinders",
+      "team": "Thrashed Bike Racing & M3/Tobacco Road Harley-Davidson",
+      "hometown": "Brentwood, New Hampshire",
+      "nationality": "United States",
+      "bike": "Yamaha YZF-R1 & Harley-Davidson Road Glide",
+      "bike_manufacturer": "Yamaha",
+      "class_slugs": [
+        "mission-king-of-the-baggers",
+        "superbike"
+      ]
+    },
+    {
+      "slug": "pj-jacobsen",
+      "number": 15,
+      "name": "PJ Jacobsen",
+      "team": "Rahal Ducati Moto w/XPEL",
+      "hometown": "Westtown, New York",
+      "nationality": "United States",
+      "bike": "Ducati Panigale V4 R",
+      "bike_manufacturer": "Ducati",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "richie-escalante",
+      "number": 54,
+      "name": "Richie Escalante",
+      "team": "M4 ECSTAR Suzuki",
+      "hometown": "Tizayuca, Mexico",
+      "nationality": "Mexico",
+      "bike": "Suzuki GSX-R1000R",
+      "bike_manufacturer": "Suzuki",
+      "class_slugs": [
+        "superbike"
+      ]
+    },
+    {
+      "slug": "sean-dylan-kelly",
+      "number": 40,
+      "name": "Sean Dylan Kelly",
+      "team": "OrangeCat Racing",
+      "hometown": "Hollywood, Florida",
+      "nationality": "United States",
+      "bike": "BMW M 1000 RR",
+      "bike_manufacturer": "BMW",
+      "class_slugs": [
+        "superbike"
+      ]
+    }
+  ]
+}

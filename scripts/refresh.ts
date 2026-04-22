@@ -3,6 +3,8 @@ import { spawn } from "node:child_process";
 const steps: Array<{ name: string; cmd: string; args: string[] }> = [
   { name: "scrape standings", cmd: "npx", args: ["tsx", "scripts/scrape-standings.ts"] },
   { name: "scrape schedule", cmd: "npx", args: ["tsx", "scripts/scrape-schedule.ts"] },
+  { name: "scrape classes", cmd: "npx", args: ["tsx", "scripts/scrape-classes.ts"] },
+  { name: "scrape riders", cmd: "npx", args: ["tsx", "scripts/scrape-riders.ts"] },
   { name: "generate stats packet", cmd: "npx", args: ["tsx", "scripts/generate-stats-packet.ts"] },
 ];
 
@@ -25,6 +27,8 @@ async function main() {
   console.log(`\n✓ Refresh complete in ${elapsed}s`);
   console.log("  - scripts/output/standings.json");
   console.log("  - scripts/output/schedule.json");
+  console.log("  - scripts/output/classes.json");
+  console.log("  - scripts/output/riders.json");
   console.log("  - scripts/output/stats-packet.md");
   console.log("\nCommit the scraped data? It's gitignored by default.");
 }

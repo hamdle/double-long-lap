@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { Sponsorship } from "@/components/Sponsorship";
-import { getStandings, type ClassStandings } from "@/lib/data";
+import { CLASS_GUIDES } from "@/data/class-guides";
+import {
+  getClassGuide,
+  getStandings,
+  type ClassGuide,
+  type ClassStandings,
+} from "@/lib/data";
 
 export const metadata = {
   title: "Standings",
@@ -14,7 +20,13 @@ function formatScrapedAt(iso: string): string {
   });
 }
 
-function ClassCard({ cls }: { cls: ClassStandings }) {
+function ClassCard({
+  cls,
+  tagline,
+}: {
+  cls: ClassStandings;
+  tagline: string | null;
+}) {
   const leader = cls.top_riders[0];
   return (
     <div className="col-6">
@@ -24,6 +36,7 @@ function ClassCard({ cls }: { cls: ClassStandings }) {
         style={{ display: "block" }}
       >
         <h3 className="p-card__title">{cls.class_name} →</h3>
+        {tagline ? <p className="u-text-muted">{tagline}</p> : null}
         <p className="u-text-muted">
           <small>
             {cls.season_year} · Round {cls.round_number} · {cls.track_code}
@@ -43,6 +56,24 @@ function ClassCard({ cls }: { cls: ClassStandings }) {
   );
 }
 
+function GuideOnlyCard({ guide }: { guide: ClassGuide }) {
+  return (
+    <div className="col-6">
+      <Link
+        href={`/standings/${guide.class_slug}`}
+        className="p-card--highlighted"
+        style={{ display: "block" }}
+      >
+        <h3 className="p-card__title">{guide.display_name} →</h3>
+        <p className="u-text-muted">{guide.tagline}</p>
+        <p className="u-text-muted">
+          <small>No season-long points table — results scored per event.</small>
+        </p>
+      </Link>
+    </div>
+  );
+}
+
 export default async function StandingsPage() {
   const data = await getStandings();
   const bySeason = new Map<number, ClassStandings[]>();
@@ -53,6 +84,23 @@ export default async function StandingsPage() {
   }
   const seasons = Array.from(bySeason.keys()).sort((a, b) => b - a);
   const currentSeason = seasons[0];
+
+  // Tagline lookup for every scraped class (falls back to null if no guide authored).
+  const scrapedSlugs = new Set(data.classes.map((c) => c.class_slug));
+  const taglineBySlug = new Map<string, string>();
+  for (const cls of data.classes) {
+    const g = await getClassGuide(cls.class_slug);
+    if (g) taglineBySlug.set(cls.class_slug, g.tagline);
+  }
+
+  // Classes that have a guide but no scraped standings (e.g. BTR).
+  const guideOnlyGuides = (
+    await Promise.all(
+      CLASS_GUIDES.filter((g) => !scrapedSlugs.has(g.class_slug)).map((g) =>
+        getClassGuide(g.class_slug),
+      ),
+    )
+  ).filter((g): g is ClassGuide => g !== null);
 
   return (
     <>
@@ -118,12 +166,37 @@ export default async function StandingsPage() {
             </div>
             <div className="row">
               {classes.map((c) => (
-                <ClassCard key={c.class_slug} cls={c} />
+                <ClassCard
+                  key={c.class_slug}
+                  cls={c}
+                  tagline={taglineBySlug.get(c.class_slug) ?? null}
+                />
               ))}
             </div>
           </section>
         );
       })}
+
+      {guideOnlyGuides.length > 0 ? (
+        <section className="p-strip is-shallow">
+          <div className="row">
+            <div className="col-12">
+              <h2 className="p-heading--2">Support classes &amp; programs</h2>
+              <p className="u-text-muted">
+                <small>
+                  MotoAmerica classes and programs that race at select weekends rather than
+                  contesting a full-season points championship.
+                </small>
+              </p>
+            </div>
+          </div>
+          <div className="row">
+            {guideOnlyGuides.map((g) => (
+              <GuideOnlyCard key={g.class_slug} guide={g} />
+            ))}
+          </div>
+        </section>
+      ) : null}
     </>
   );
 }

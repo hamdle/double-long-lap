@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { AdSlot } from "@/components/AdSlot";
 import { JsonLd } from "@/components/JsonLd";
 
 const siteJsonLd = {
@@ -46,11 +45,6 @@ export default function Home() {
       </section>
 
       <section className="p-strip is-shallow">
-        <div className="row">
-          <div className="col-12">
-            <AdSlot placement="home-top" size="leaderboard" />
-          </div>
-        </div>
         <div className="row">
           {sections.map((s) => (
             <div key={s.href} className="col-4">

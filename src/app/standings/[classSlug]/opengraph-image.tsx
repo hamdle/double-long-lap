@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { getClassStandings, getStandings } from "@/lib/data";
+import { getClassGuide, getClassStandings, getKnownClassSlugs } from "@/lib/data";
 
 export const alt = "MotoAmerica class standings";
 export const size = { width: 1200, height: 630 };
@@ -7,14 +7,19 @@ export const contentType = "image/png";
 export const dynamic = "force-static";
 
 export async function generateStaticParams() {
-  const data = await getStandings();
-  return data.classes.map((c) => ({ classSlug: c.class_slug }));
+  const slugs = await getKnownClassSlugs();
+  return slugs.map((classSlug) => ({ classSlug }));
 }
 
 export default async function Image({ params }: { params: Promise<{ classSlug: string }> }) {
   const { classSlug } = await params;
-  const cls = await getClassStandings(classSlug);
+  const [cls, guide] = await Promise.all([
+    getClassStandings(classSlug),
+    getClassGuide(classSlug),
+  ]);
   const leader = cls?.top_riders[0];
+  const displayName = cls?.class_name ?? guide?.display_name ?? "Class";
+  const seasonLine = cls ? `STANDINGS · ${cls.season_year}` : "CLASS GUIDE";
 
   return new ImageResponse(
     (
@@ -30,12 +35,8 @@ export default async function Image({ params }: { params: Promise<{ classSlug: s
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ fontSize: 28, letterSpacing: 2, opacity: 0.8 }}>
-          {`STANDINGS · ${cls?.season_year ?? ""}`}
-        </div>
-        <div style={{ fontSize: 88, fontWeight: 700, marginTop: 16 }}>
-          {cls?.class_name ?? "Class"}
-        </div>
+        <div style={{ fontSize: 28, letterSpacing: 2, opacity: 0.8 }}>{seasonLine}</div>
+        <div style={{ fontSize: 88, fontWeight: 700, marginTop: 16 }}>{displayName}</div>
         {leader ? (
           <div
             style={{

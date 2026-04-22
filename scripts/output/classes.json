@@ -1,0 +1,54 @@
+{
+  "series": "motoamerica",
+  "scraped_at": "2026-04-21T04:01:26.863Z",
+  "classes": [
+    {
+      "class_slug": "superbike",
+      "source_url": "https://www.motoamerica.com/superbikes/",
+      "blurb": "MotoAmerica’s premier race class, Superbike showcases America’s and some of the world’s best motorcycle road racers aboard high-horsepower, highly modified, production-based liter-class motorcycles that are capable of speeds approaching 200 miles per hour. These machines are positively bristling with the latest engine, electronics, chassis and suspension, and tire technologies.",
+      "engine_configurations": "Over 750cc up to 1000cc, 4-stroke, 3- and 4-cylinder\nOver 850cc up to 1200cc, 4-stroke, 2-cylinder\n210+ Horsepower",
+      "minimum_weight": "370.5 pounds",
+      "rider_age_limit": "18-55"
+    },
+    {
+      "class_slug": "supersport",
+      "source_url": "https://www.motoamerica.com/supersport/",
+      "blurb": "MotoAmerica’s middleweight championship, the Supersport class features the series’ rising stars competing aboard production-based motorcycles that are slightly less powerful than Superbikes, but are no less exciting to watch.",
+      "engine_configurations": "Over 400cc up to 636cc, 4-stroke, 4-cylinder\nOver 500cc up to 890cc, 4-stroke, 3-cylinder\nOver 600cc up to 955cc, 4-stroke, 2-cylinder\n130 Horsepower",
+      "minimum_weight": "354.9 pounds",
+      "rider_age_limit": "16-55"
+    },
+    {
+      "class_slug": "twins-cup",
+      "source_url": "https://www.motoamerica.com/twins-cup/",
+      "blurb": "Putting lighter-weight, twin-cylinder motorcycles in the spotlight, the MotoAmerica Twins Cup Championship is a rapidly evolving race class that initially enabled regional and club racers from around the country to step up to the MotoAmerica series and compete on a national level.",
+      "engine_configurations": "Over 600cc up to 800cc, 4-stroke, 2-cylinder\n100 Horsepower",
+      "minimum_weight": "338 pounds",
+      "rider_age_limit": "15-55"
+    },
+    {
+      "class_slug": "talent-cup",
+      "source_url": "https://www.motoamerica.com/talent-cup/",
+      "blurb": "The MotoAmerica Talent Cup Championship assists America’s young road racers in reaching the highest level of the sport.",
+      "engine_configurations": "350cc, 4-stroke, 1-cylinder\n55 Horsepower",
+      "minimum_weight": null,
+      "rider_age_limit": "14-23"
+    },
+    {
+      "class_slug": "mission-king-of-the-baggers",
+      "source_url": "https://www.motoamerica.com/kotb/",
+      "blurb": "What started as a novel idea has become one of MotoAmerica’s most popular and fastest-growing race classes. Touring motorcycles from Harley-Davidson and Indian form the basis for the Mission King Of The Baggers Championship, but these motorcycles are far from gentle cruisers.",
+      "engine_configurations": null,
+      "minimum_weight": null,
+      "rider_age_limit": null
+    },
+    {
+      "class_slug": "mission-super-hooligan",
+      "source_url": "https://www.motoamerica.com/super-hooligan/",
+      "blurb": "The Mission Super Hooligan National Championship (MSHNC) was created by Roland Sands Design in conjunction with MotoAmerica, and it features motorcycles from various disciplines, along with a broad set of rules meant to bring new riders and brands into road racing.",
+      "engine_configurations": null,
+      "minimum_weight": "397 pounds",
+      "rider_age_limit": null
+    }
+  ]
+}

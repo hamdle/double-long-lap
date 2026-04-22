@@ -1,56 +1,56 @@
 {
   "series": "motoamerica",
   "source_url": "https://www.motoamerica.com/standings/",
-  "scraped_at": "2026-04-17T16:04:11.594Z",
+  "scraped_at": "2026-04-21T04:01:17.614Z",
   "classes": [
     {
       "class_name": "Superbike",
       "class_slug": "superbike",
       "class_code": "SBK",
-      "season_year": 2025,
-      "round_number": 14,
-      "track_code": "NJMP",
-      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2025/NJMP/25_14_NJMP_SBK_PTS_points.pdf",
+      "season_year": 2026,
+      "round_number": 4,
+      "track_code": "RDATL",
+      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2026/RDATL/26_4_RDATL_SBK_PTS_points.pdf",
       "top_riders": [
         {
           "position": 1,
-          "name": "Cameron Beaubier",
-          "points": 371,
-          "bike": "BMW",
-          "isChampion": true
-        },
-        {
-          "position": 2,
-          "name": "Josh Herrin",
-          "points": 346,
-          "bike": "Ducati",
-          "isChampion": false
-        },
-        {
-          "position": 3,
-          "name": "Bobby Fong",
-          "points": 339,
+          "name": "Mathew Scholtz",
+          "points": 45,
           "bike": "Yamaha",
           "isChampion": false
         },
         {
+          "position": 2,
+          "name": "Sean Dylan Kelly",
+          "points": 36,
+          "bike": "BMW",
+          "isChampion": false
+        },
+        {
+          "position": 3,
+          "name": "Cameron Beaubier",
+          "points": 27,
+          "bike": "Ducati",
+          "isChampion": false
+        },
+        {
           "position": 4,
-          "name": "Jake Gagne",
-          "points": 267,
+          "name": "Bobby Fong",
+          "points": 25,
           "bike": "Yamaha",
           "isChampion": false
         },
         {
           "position": 5,
-          "name": "Sean Dylan Kelly",
-          "points": 207,
-          "bike": "Suzuki",
+          "name": "Cameron Petersen",
+          "points": 23,
+          "bike": "Ducati",
           "isChampion": false
         },
         {
           "position": 6,
-          "name": "Richie Escalante",
-          "points": 188,
+          "name": "Brandon Paasch",
+          "points": 17,
           "bike": "Suzuki",
           "isChampion": false
         }
@@ -61,49 +61,49 @@
       "class_slug": "supersport",
       "class_code": "SSP",
       "season_year": 2026,
-      "round_number": 1,
-      "track_code": "DAY",
-      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2026/DAY/26_1_DAY_SSP_PTS_points.pdf",
+      "round_number": 4,
+      "track_code": "RDATL",
+      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2026/RDATL/26_4_RDATL_SSP_PTS_points.pdf",
       "top_riders": [
         {
           "position": 1,
           "name": "Josh Herrin",
-          "points": 25,
+          "points": 61,
           "bike": "Ducati",
           "isChampion": false
         },
         {
           "position": 2,
-          "name": "Tyler Scott",
-          "points": 20,
-          "bike": "Suzuki",
-          "isChampion": false
-        },
-        {
-          "position": 3,
-          "name": "Kayla Yaakov",
-          "points": 16,
+          "name": "Darryn Binder",
+          "points": 58,
           "bike": "Ducati",
           "isChampion": false
         },
         {
+          "position": 3,
+          "name": "Tyler Scott",
+          "points": 56,
+          "bike": "Suzuki",
+          "isChampion": false
+        },
+        {
           "position": 4,
-          "name": "Darryn Binder",
-          "points": 13,
+          "name": "Kayla Yaakov",
+          "points": 42,
           "bike": "Ducati",
           "isChampion": false
         },
         {
           "position": 5,
-          "name": "Alessandro Di Mario",
-          "points": 11,
-          "bike": "Ducati",
+          "name": "Blake Davis",
+          "points": 36,
+          "bike": "Yamaha",
           "isChampion": false
         },
         {
           "position": 6,
           "name": "Dominic Doyle",
-          "points": 10,
+          "points": 26,
           "bike": "Yamaha",
           "isChampion": false
         }
@@ -114,49 +114,49 @@
       "class_slug": "talent-cup",
       "class_code": "TCP",
       "season_year": 2026,
-      "round_number": 3,
-      "track_code": "COTAGP",
-      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2026/COTAGP/26_3_COTAGP_TCP_PTS_points.pdf",
+      "round_number": 4,
+      "track_code": "RDATL",
+      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2026/RDATL/26_4_RDATL_TCP_PTS_points.pdf",
       "top_riders": [
         {
           "position": 1,
           "name": "Kensei Matsudaira",
-          "points": 45,
+          "points": 95,
           "bike": "Kramer",
           "isChampion": false
         },
         {
           "position": 2,
           "name": "Nathan Gouker",
-          "points": 45,
+          "points": 81,
           "bike": "Kramer",
           "isChampion": false
         },
         {
           "position": 3,
-          "name": "Sam Drane",
-          "points": 29,
+          "name": "Jake Paige",
+          "points": 54,
           "bike": "Kramer",
           "isChampion": false
         },
         {
           "position": 4,
-          "name": "Jake Paige",
-          "points": 29,
+          "name": "Sam Drane",
+          "points": 45,
           "bike": "Kramer",
           "isChampion": false
         },
         {
           "position": 5,
           "name": "Rossi Garcia",
-          "points": 22,
+          "points": 42,
           "bike": "Kramer",
           "isChampion": false
         },
         {
           "position": 6,
-          "name": "Reese Frankenfield",
-          "points": 20,
+          "name": "Nathan Bettencourt",
+          "points": 39,
           "bike": "Kramer",
           "isChampion": false
         }
@@ -167,49 +167,49 @@
       "class_slug": "twins-cup",
       "class_code": "TWN",
       "season_year": 2026,
-      "round_number": 1,
-      "track_code": "DAY",
-      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2026/DAY/26_1_DAY_TWN_PTS_points.pdf",
+      "round_number": 4,
+      "track_code": "RDATL",
+      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2026/RDATL/26_4_RDATL_TWN_PTS_points.pdf",
       "top_riders": [
         {
           "position": 1,
-          "name": "Sam Drane",
-          "points": 45,
-          "bike": "Yamaha",
+          "name": "Hank Vossberg",
+          "points": 86,
+          "bike": "Aprilia",
           "isChampion": false
         },
         {
           "position": 2,
-          "name": "Hank Vossberg",
-          "points": 41,
-          "bike": "Aprilia",
+          "name": "Sam Drane",
+          "points": 63,
+          "bike": "Yamaha",
           "isChampion": false
         },
         {
           "position": 3,
           "name": "Bodie Paige",
-          "points": 29,
+          "points": 62,
           "bike": "Suzuki",
           "isChampion": false
         },
         {
           "position": 4,
           "name": "Matthew Chapin",
-          "points": 28,
+          "points": 58,
           "bike": "Suzuki",
           "isChampion": false
         },
         {
           "position": 5,
-          "name": "Michel Agazzi",
-          "points": 20,
+          "name": "Kevin Olmedo",
+          "points": 36,
           "bike": "Suzuki",
           "isChampion": false
         },
         {
           "position": 6,
-          "name": "Kevin Olmedo",
-          "points": 20,
+          "name": "Isaac Woodworth",
+          "points": 35,
           "bike": "Suzuki",
           "isChampion": false
         }
@@ -326,49 +326,49 @@
       "class_slug": "mission-king-of-the-baggers",
       "class_code": "KTB",
       "season_year": 2026,
-      "round_number": 1,
-      "track_code": "DAY",
-      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2026/DAY/26_1_DAY_KTB_PTS_points.pdf",
+      "round_number": 4,
+      "track_code": "RDATL",
+      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2026/RDATL/26_4_RDATL_KTB_PTS_points.pdf",
       "top_riders": [
         {
           "position": 1,
-          "name": "Troy Herfoss",
-          "points": 45,
+          "name": "Hayden Gillim",
+          "points": 82,
           "bike": null,
           "isChampion": false
         },
         {
           "position": 2,
-          "name": "Hayden Gillim",
-          "points": 32,
+          "name": "Troy Herfoss",
+          "points": 81,
           "bike": null,
           "isChampion": false
         },
         {
           "position": 3,
-          "name": "Kyle Wyman",
-          "points": 32,
+          "name": "Bradley Smith",
+          "points": 55,
           "bike": null,
           "isChampion": false
         },
         {
           "position": 4,
-          "name": "Bradley Smith",
-          "points": 26,
+          "name": "Rocco Landers",
+          "points": 53,
           "bike": null,
           "isChampion": false
         },
         {
           "position": 5,
-          "name": "James Rispoli",
-          "points": 22,
+          "name": "Tyler O'Hara",
+          "points": 42,
           "bike": null,
           "isChampion": false
         },
         {
           "position": 6,
-          "name": "Rocco Landers",
-          "points": 20,
+          "name": "James Rispoli",
+          "points": 42,
           "bike": null,
           "isChampion": false
         }
@@ -434,47 +434,47 @@
       "season_year": null,
       "round_number": null,
       "track_code": null,
-      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2025/NJMP/25_14_NJMP_SBK_PTS_sbcpts.pdf",
+      "full_standings_pdf_url": "https://www.motoamericaregistration.com/Results/2026/RDATL/26_4_RDATL_SBK_PTS_sbcpts.pdf",
       "top_riders": [
         {
           "position": 1,
-          "name": "JD Beach",
-          "points": 475,
+          "name": "Andrew Lee",
+          "points": 45,
           "bike": null,
           "isChampion": false
         },
         {
           "position": 2,
-          "name": "Jason Waters",
-          "points": 319,
+          "name": "Deion Campbell",
+          "points": 25,
           "bike": null,
           "isChampion": false
         },
         {
           "position": 3,
-          "name": "Deion Campbell",
-          "points": 283,
+          "name": "Carl Soltisz",
+          "points": 23,
           "bike": null,
           "isChampion": false
         },
         {
           "position": 4,
-          "name": "Joseph Giannotto",
-          "points": 185,
+          "name": "Christopher Durbin",
+          "points": 22,
           "bike": null,
           "isChampion": false
         },
         {
           "position": 5,
-          "name": "Nolan Lamkin",
-          "points": 143,
+          "name": "Emanuel Nicolas Aguilar",
+          "points": 20,
           "bike": null,
           "isChampion": false
         },
         {
           "position": 6,
-          "name": "Bobby Davies",
-          "points": 52,
+          "name": "Zachary Schumacher",
+          "points": 20,
           "bike": null,
           "isChampion": false
         }

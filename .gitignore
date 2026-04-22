@@ -44,3 +44,5 @@ next-env.d.ts
 /scripts/output/*
 !/scripts/output/standings.json
 !/scripts/output/schedule.json
+!/scripts/output/classes.json
+!/scripts/output/riders.json

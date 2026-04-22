@@ -9,6 +9,8 @@
     "lint": "eslint",
     "scrape:standings": "tsx scripts/scrape-standings.ts",
     "scrape:schedule": "tsx scripts/scrape-schedule.ts",
+    "scrape:classes": "tsx scripts/scrape-classes.ts",
+    "scrape:riders": "tsx scripts/scrape-riders.ts",
     "packet:stats": "tsx scripts/generate-stats-packet.ts",
     "refresh": "tsx scripts/refresh.ts"
   },

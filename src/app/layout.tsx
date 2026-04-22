@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import { NewsletterSignup } from "@/components/NewsletterSignup";
@@ -42,6 +42,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  colorScheme: "dark",
+  themeColor: "#111",
+};
+
 const navLinks = [
   { href: "/standings", label: "Standings" },
   { href: "/schedule", label: "Schedule" },
@@ -56,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="is-dark">
       {PLAUSIBLE_DOMAIN ? (
         <head>
           <Script

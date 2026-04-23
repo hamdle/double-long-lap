@@ -1,36 +1,21 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { Menubar } from 'primeng/menubar';
-import { Button } from 'primeng/button';
 import type { MenuItem } from 'primeng/api';
 import { ThemeService } from './theme/theme.service';
-import { NewsletterSignup } from './components/newsletter-signup/newsletter-signup';
+import { SiteFooter } from './components/site-footer/site-footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, Menubar, Button, NewsletterSignup],
+  imports: [RouterOutlet, RouterLink, Menubar, SiteFooter],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
+  // Injected so the service bootstraps at app load — its constructor applies
+  // the persisted theme preference to <html> and subscribes to system
+  // prefers-color-scheme changes. The user-facing toggle lives in the footer.
   private readonly theme = inject(ThemeService);
-
-  readonly preference = this.theme.preference;
-  readonly resolved = this.theme.resolved;
-
-  readonly themeIcon = computed(() => {
-    const pref = this.preference();
-    if (pref === 'system') return 'pi pi-desktop';
-    if (pref === 'dark') return 'pi pi-moon';
-    return 'pi pi-sun';
-  });
-
-  readonly themeAriaLabel = computed<string>(() => {
-    const pref = this.preference();
-    if (pref === 'system') return 'Theme: system (cycle to light)';
-    if (pref === 'dark') return 'Theme: dark (cycle to system)';
-    return 'Theme: light (cycle to dark)';
-  });
 
   readonly menu: MenuItem[] = [
     { label: 'Standings', icon: 'pi pi-trophy', routerLink: '/standings' },
@@ -39,8 +24,4 @@ export class App {
     { label: 'Riders', icon: 'pi pi-users', routerLink: '/riders' },
     { label: 'Venues', icon: 'pi pi-map-marker', routerLink: '/venues' },
   ];
-
-  cycleTheme(): void {
-    this.theme.cycle();
-  }
 }

@@ -1,32 +1,115 @@
-// Global styles for the Angular + PrimeNG spike. Vanilla Framework's CSS is
-// intentionally NOT loaded — see src/app/theme/vanilla-preset.ts for the
-// rationale. Only Vanilla's *tokens* (fonts, palette, spacing) are reused.
+// Global styles for Double Long Lap.
+//
+// This file is the single source of truth for design tokens: typography,
+// spacing, radius, elevation, and surface colors. Components read these via
+// CSS custom properties so the visual system can evolve here without a
+// codebase-wide rewrite.
+//
+// See docs/07-style-refresh-plan.md for the rationale behind these choices.
+//
+// Layer order matters: app rules live in the `app` layer and are ordered
+// before `primeng` in PrimeNG's config, so our custom-property bindings on
+// `:root` take precedence over PrimeNG's own defaults.
 @layer app, primeng;
 
 @layer app {
   :root {
-    --vf-font-base:
-      'Ubuntu variable', 'Ubuntu', -apple-system, 'Segoe UI', 'Roboto',
-      'Oxygen', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
-    --vf-font-mono:
+    // Typography — Archivo for display (headings, numerals), Inter for body.
+    --dll-font-display:
+      'Archivo Variable', 'Archivo', -apple-system, 'Segoe UI', 'Roboto',
+      'Helvetica Neue', sans-serif;
+    --dll-font-body:
+      'Inter Variable', 'Inter', -apple-system, 'Segoe UI', 'Roboto',
+      'Helvetica Neue', sans-serif;
+    --dll-font-mono:
       'Ubuntu Mono variable', 'Ubuntu Mono', Consolas, Monaco, Courier,
       monospace;
 
-    --vf-sp-unit: 0.5rem;
-    --vf-sph-small: var(--vf-sp-unit);
-    --vf-sph-large: calc(var(--vf-sp-unit) * 2);
-    --vf-spv-strip-shallow: calc(var(--vf-sp-unit) * 3);
-    --vf-spv-strip-regular: calc(var(--vf-sp-unit) * 8);
+    // Ink — true black, used for the header/footer chrome in both light and
+    // dark themes so the bookends always frame the page (see plan §5.4).
+    --dll-ink: #000000;
+    --dll-ink-fg: #ffffff;
+    --dll-ink-border: rgba(255, 255, 255, 0.08);
 
-    --vf-bg-light: #ffffff;
-    --vf-bg-light-alt: #f7f7f7;
-    --vf-bg-dark: #262626;
-    --vf-bg-dark-alt: #202020;
+    // Surfaces — light stops for light mode, dark stops for dark mode. Body
+    // content alternates between -50/-100 (light) or -900/-800 (dark) to
+    // create tonal hierarchy without borders.
+    --dll-surface-50: #ffffff;
+    --dll-surface-100: #f7f7f7;
+    --dll-surface-200: #ededed;
+    --dll-surface-300: #e0e0e0;
+    --dll-surface-600: #2a2a30;
+    --dll-surface-700: #1f1f24;
+    --dll-surface-800: #17171b;
+    --dll-surface-900: #0d0d10;
+
+    // Spacing scale.
+    --dll-sp-xs: 0.25rem;
+    --dll-sp-sm: 0.5rem;
+    --dll-sp-md: 0.75rem;
+    --dll-sp-lg: 1rem;
+    --dll-sp-xl: 1.5rem;
+    --dll-sp-2xl: 2rem;
+    --dll-sp-3xl: 3rem;
+    --dll-sp-4xl: 4rem;
+    --dll-sp-5xl: 6rem;
+
+    // Radius scale.
+    --dll-radius-xs: 2px;
+    --dll-radius-sm: 4px;
+    --dll-radius-md: 6px;
+    --dll-radius-lg: 10px;
+    --dll-radius-xl: 16px;
+    --dll-radius-pill: 9999px;
+
+    // Elevation — tuned for light mode; overridden in dark mode below.
+    --dll-shadow-1:
+      0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 1px rgba(0, 0, 0, 0.04);
+    --dll-shadow-2:
+      0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+    --dll-shadow-3:
+      0 12px 32px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+
+    // Informational callouts (class notes, affiliate block, class-guide note).
+    // Deep blue border with a tinted background — legible against light
+    // surfaces. Flipped in dark mode to a brighter teal/blue with more
+    // opacity so the callout still reads.
+    --dll-info-border: #24598f;
+    --dll-info-bg: rgba(36, 89, 143, 0.08);
+
+    // Back-compat: existing components still reference --vf-* tokens. These
+    // aliases keep them working while we migrate call sites incrementally.
+    --vf-font-base: var(--dll-font-body);
+    --vf-font-mono: var(--dll-font-mono);
+    --vf-sp-unit: 0.5rem;
+    --vf-sph-small: var(--dll-sp-sm);
+    --vf-sph-large: var(--dll-sp-lg);
+    --vf-spv-strip-shallow: var(--dll-sp-xl);
+    --vf-spv-strip-regular: var(--dll-sp-4xl);
+    --vf-bg-light: var(--dll-surface-50);
+    --vf-bg-light-alt: var(--dll-surface-100);
+    --vf-bg-dark: var(--dll-surface-900);
+    --vf-bg-dark-alt: var(--dll-surface-800);
     --vf-text-light: #000000;
     --vf-text-dark: #ffffff;
 
-    --p-font-family: var(--vf-font-base);
+    --p-font-family: var(--dll-font-body);
+  }
+
+  html.is-dark {
+    // Shadows against a dark canvas need more opacity to register.
+    --dll-shadow-1:
+      0 1px 2px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.3);
+    --dll-shadow-2:
+      0 4px 12px rgba(0, 0, 0, 0.55), 0 2px 4px rgba(0, 0, 0, 0.35);
+    --dll-shadow-3:
+      0 12px 32px rgba(0, 0, 0, 0.6), 0 4px 8px rgba(0, 0, 0, 0.4);
+
+    // Info callouts use a brighter teal/blue against dark backgrounds so
+    // the 8%-opacity trick from light mode still reads. Accent color comes
+    // from VanillaBrand.accentDark (#70bbc2).
+    --dll-info-border: #70bbc2;
+    --dll-info-bg: rgba(112, 187, 194, 0.12);
   }
 
   html,
@@ -36,28 +119,115 @@
   }
 
   body {
-    font-family: var(--vf-font-base);
+    font-family: var(--dll-font-body);
     font-size: 1rem;
-    line-height: 1.5;
-    background: var(--vf-bg-light);
-    color: var(--vf-text-light);
+    line-height: 1.55;
+    background: var(--dll-surface-50);
+    color: #0a0a0b;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
 
   html.is-dark body {
-    background: var(--vf-bg-dark);
-    color: var(--vf-text-dark);
+    background: var(--dll-surface-900);
+    color: #f6f6f7;
   }
 
-  // Vanilla-style typography scale, transcribed from
-  // node_modules/vanilla-framework/scss/_settings_spacing.scss
-  h1, .h1 { font-size: 2.5rem; line-height: 3rem; font-weight: 550; margin: 0 0 1.5rem; }
-  h2, .h2 { font-size: 2.5rem; line-height: 3rem; font-weight: 180;  margin: 0 0 1.5rem; }
-  h3, .h3 { font-size: 1.5rem; line-height: 2rem; font-weight: 550; margin: 0 0 1.5rem; }
-  h4, .h4 { font-size: 1.5rem; line-height: 2rem; font-weight: 275; margin: 0 0 1.5rem; }
-  h5, .h5 { font-size: 1rem;   line-height: 1.5rem; font-weight: 550; margin: 0 0 1.5rem; }
-  p { margin: 0 0 1.5rem; }
+  // Typography scale — weight does the hierarchy work, not hairline/ultralight
+  // (the old scale used weight 180 for h2, which read as fragile).
+  h1, h2, h3, h4, h5,
+  .h1, .h2, .h3, .h4, .h5,
+  .display-1, .display-2 {
+    font-family: var(--dll-font-display);
+    margin: 0 0 var(--dll-sp-xl);
+  }
+
+  .display-1 {
+    font-size: 3.5rem;
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .display-2 {
+    font-size: 2.5rem;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  h1, .h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+  }
+  h2, .h2 {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  h3, .h3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  h4, .h4 {
+    font-size: 1.125rem;
+    line-height: 1.35;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+  h5, .h5 {
+    font-size: 0.9375rem;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0 0 var(--dll-sp-xl);
+  }
+
+  .caption {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  // Uppercase eyebrow / kicker — used above titles, on section labels, and
+  // anywhere a small metadata pill would otherwise sit. Default bottom
+  // margin is tight (xs) because the eyebrow almost always precedes a
+  // heading; override downstream if used standalone.
+  .eyebrow {
+    font-family: var(--dll-font-display);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 var(--dll-sp-xs);
+  }
+
+  // Tabular, lining figures for race data — positions, times, rounds, dates.
+  // Apply to cells/spans that hold numeric values so columns align.
+  .dll-num {
+    font-feature-settings: 'tnum' 1, 'lnum' 1;
+    font-variant-numeric: tabular-nums lining-nums;
+    letter-spacing: -0.01em;
+  }
+
+  // "ROUND 03" eyebrow used on schedule cards and class heroes — same visual
+  // treatment as .eyebrow but with tabular numerals turned on.
+  .dll-round-tag {
+    font-family: var(--dll-font-display);
+    font-size: 0.75rem;
+    line-height: 1.4;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-feature-settings: 'tnum' 1, 'lnum' 1;
+  }
 
   .u-text-muted {
     color: rgba(0, 0, 0, 0.6);
@@ -67,36 +237,205 @@
     color: rgba(255, 255, 255, 0.6);
   }
 
-  // 12-column grid, faithful to Vanilla's row/col- contract
+  // 12-column grid, faithful to Vanilla's row/col- contract.
   .row {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: var(--vf-sph-large);
+    gap: var(--dll-sp-lg);
     max-width: 72rem;
     margin: 0 auto;
-    padding: 0 var(--vf-sph-large);
+    padding: 0 var(--dll-sp-lg);
   }
   @for $i from 1 through 12 {
-    .col-#{$i} { grid-column: span #{$i}; }
+    .col-#{$i} {
+      grid-column: span #{$i};
+    }
   }
   @media (max-width: 47rem) {
     @for $i from 1 through 12 {
-      .col-#{$i} { grid-column: span 12; }
+      .col-#{$i} {
+        grid-column: span 12;
+      }
     }
   }
 
-  // Vanilla "strip" — a full-width section with vertical breathing room
+  // Full-width section with vertical breathing room.
   .strip {
-    padding: var(--vf-spv-strip-regular) 0;
+    padding: var(--dll-sp-4xl) 0;
   }
   .strip--shallow {
-    padding: var(--vf-spv-strip-shallow) 0;
+    padding: var(--dll-sp-xl) 0;
   }
   .strip--dark {
-    background: var(--vf-bg-dark);
-    color: var(--vf-text-dark);
+    background: var(--dll-surface-800);
+    color: #ffffff;
   }
   html.is-dark .strip--dark {
-    background: var(--vf-bg-dark-alt);
+    background: var(--dll-surface-800);
+  }
+
+  // .dll-header descendants — rules that target PrimeNG's internal template
+  // elements must live at the global layer (not in app.scss) because
+  // view-encapsulation scope does not reach child-component DOM. The outer
+  // .dll-header selector keeps these scoped-by-convention to the header.
+  .dll-header .p-menubar-item-link {
+    font-weight: 500;
+    font-size: 0.9375rem;
+    letter-spacing: 0.005em;
+  }
+
+  // Active route: red underline accent via inset shadow (no padding shift).
+  // PrimeNG applies `p-menubar-item-link-active` through routerLinkActive.
+  .dll-header .p-menubar-item-link.p-menubar-item-link-active {
+    color: #ffffff;
+    background: transparent;
+    box-shadow: inset 0 -2px 0 0 var(--p-primary-500);
+  }
+  .dll-header .p-menubar-item-link.p-menubar-item-link-active .p-menubar-item-icon {
+    color: #ffffff;
+  }
+
+  // Mobile drop-down panel keeps the ink canvas so the header chrome reads
+  // as extending downward into the menu rather than dropping onto the page.
+  .dll-header .p-menubar.p-menubar-mobile .p-menubar-root-list {
+    background: var(--dll-ink);
+    border: 1px solid var(--dll-ink-border);
+    border-top: none;
+  }
+
+  // --- Cards ---------------------------------------------------------------
+  // PrimeNG p-card is themed via VanillaPreset (radius, padding, shadow).
+  // The utilities here sit alongside: a hover-lift for interactive cards and
+  // a "stat" variant that makes the card into a big-number callout.
+
+  // Dark-mode card surface sits one stop lighter than the page so it reads
+  // as elevated without needing a stronger shadow.
+  html.is-dark .p-card {
+    background: var(--dll-surface-800);
+  }
+
+  // Hover-lift — for any card or card-wrapper marked .dll-card--hover, or the
+  // existing anchor-wrapped card patterns on home/standings/venues pages.
+  .dll-card--hover,
+  .dll-class-card,
+  .dll-section-card,
+  .dll-venue-card {
+    transition:
+      transform 120ms ease,
+      box-shadow 120ms ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--dll-shadow-2);
+    }
+  }
+
+  // Stat card variant — small uppercase label above a prominent numeral.
+  // Typical use: "ROUND 03", "P1", "LAP 12".
+  .dll-card--stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--dll-sp-xs);
+    padding: var(--dll-sp-xl);
+    background: var(--dll-surface-50);
+    border-radius: var(--dll-radius-lg);
+    box-shadow: var(--dll-shadow-1);
+
+    .dll-card__label {
+      font-family: var(--dll-font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    .dll-card__value {
+      font-family: var(--dll-font-display);
+      font-size: 2.5rem;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      font-feature-settings: 'tnum' 1, 'lnum' 1;
+      font-variant-numeric: tabular-nums lining-nums;
+      color: #0a0a0b;
+    }
+  }
+
+  html.is-dark .dll-card--stat {
+    background: var(--dll-surface-800);
+
+    .dll-card__label {
+      color: rgba(255, 255, 255, 0.6);
+    }
+    .dll-card__value {
+      color: #f6f6f7;
+    }
+  }
+
+  // --- Chips ---------------------------------------------------------------
+  // VanillaPreset sets base chip radius/padding; these rules handle the
+  // uppercase label treatment and an "outlined" variant used on metadata pills.
+  .p-chip {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  // --- Footer theme toggle -------------------------------------------------
+  // PrimeNG SelectButton renders ToggleButton children whose internals live
+  // outside Angular's view-encapsulation reach from site-footer.scss. These
+  // rules style the three-way theme toggle on the ink footer canvas.
+  .dll-footer__theme-toggle {
+    --p-togglebutton-background: rgba(255, 255, 255, 0.04);
+    --p-togglebutton-border-color: rgba(255, 255, 255, 0.14);
+    --p-togglebutton-color: rgba(255, 255, 255, 0.72);
+    --p-togglebutton-hover-background: rgba(255, 255, 255, 0.08);
+    --p-togglebutton-hover-color: #ffffff;
+    --p-togglebutton-hover-border-color: rgba(255, 255, 255, 0.24);
+    --p-togglebutton-checked-background: #ffffff;
+    --p-togglebutton-checked-color: #000000;
+    --p-togglebutton-checked-border-color: #ffffff;
+    --p-togglebutton-icon-color: rgba(255, 255, 255, 0.72);
+    --p-togglebutton-icon-hover-color: #ffffff;
+    --p-togglebutton-icon-checked-color: #000000;
+    --p-togglebutton-border-radius: var(--dll-radius-md);
+    --p-togglebutton-padding: var(--dll-sp-sm) var(--dll-sp-md);
+
+    display: inline-flex;
+    gap: 2px;
+    padding: 2px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--dll-radius-md);
+
+    .p-togglebutton {
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    .p-togglebutton-icon {
+      margin-inline-end: var(--dll-sp-xs);
+    }
+  }
+
+  // On narrow screens, only the icon shows — labels are sr-only-ish via
+  // this utility.
+  @media (max-width: 28rem) {
+    .dll-footer__theme-label-text {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .dll-footer__theme-toggle .p-togglebutton-icon {
+      margin-inline-end: 0;
+    }
   }
 }

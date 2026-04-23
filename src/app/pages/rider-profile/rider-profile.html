@@ -58,11 +58,11 @@
                 <td>
                   <a [routerLink]="['/standings', a.class_slug]">{{ a.class_name }}</a>
                 </td>
-                <td>{{ a.season_year }}</td>
-                <td style="text-align: right">
+                <td class="dll-num">{{ a.season_year }}</td>
+                <td class="dll-num" style="text-align: right">
                   {{ a.position }}{{ a.isChampion ? ' 🏆' : '' }}
                 </td>
-                <td style="text-align: right">{{ a.points }}</td>
+                <td class="dll-num" style="text-align: right">{{ a.points }}</td>
               </tr>
             </ng-template>
           </p-table>

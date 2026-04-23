@@ -13,10 +13,11 @@
     <div class="row">
       <div class="col-8">
         <p><a routerLink="/schedule">← Full schedule</a></p>
-        <h1>{{ e.title }}</h1>
-        <p class="u-text-muted h4">
-          Round {{ e.order }} · {{ e.location }} · {{ dateRange() }}
+        <p class="eyebrow u-text-muted">
+          Round <span class="dll-num">{{ e.order }}</span>
         </p>
+        <h1>{{ e.title }}</h1>
+        <p class="u-text-muted h4">{{ e.location }} · {{ dateRange() }}</p>
         <div class="dll-actions">
           <a [href]="e.details_url" target="_blank" rel="noopener noreferrer">
             <p-button label="Official event page ↗" severity="success" />
@@ -52,7 +53,7 @@
             <ol>
               @for (r of p.top_three; track r.slug) {
                 <li>
-                  <a [routerLink]="['/riders', r.slug]">{{ r.name }}</a> — {{ r.points }} pts
+                  <a [routerLink]="['/riders', r.slug]">{{ r.name }}</a> — <span class="dll-num">{{ r.points }}</span> pts
                 </li>
               }
             </ol>

@@ -20,7 +20,7 @@
             {{ nextUp.dateRange }}
           </p>
           @if (nextUp.state === 'upcoming') {
-            <p class="dll-countdown">{{ daysLabel(nextUp.daysToGo) }}</p>
+            <p class="dll-countdown dll-num">{{ daysLabel(nextUp.daysToGo) }}</p>
           } @else {
             <p class="dll-countdown">Happening this weekend</p>
           }
@@ -60,12 +60,12 @@
         </ng-template>
         <ng-template #body let-e>
           <tr>
-            <td>{{ e.order }}</td>
+            <td class="dll-num">{{ e.order }}</td>
             <td>
               <a [routerLink]="['/schedule', e.event_slug]">{{ e.title }}</a>
             </td>
             <td>{{ e.location }}</td>
-            <td>{{ e.dateRange }}</td>
+            <td class="dll-num">{{ e.dateRange }}</td>
             <td>
               @switch (e.state) {
                 @case ('past') {

@@ -47,7 +47,8 @@
               }
               <p class="u-text-muted">
                 <small>
-                  {{ entry.cls.season_year }} · Round {{ entry.cls.round_number }} ·
+                  <span class="dll-num">{{ entry.cls.season_year }}</span> · Round
+                  <span class="dll-num">{{ entry.cls.round_number }}</span> ·
                   {{ entry.cls.track_code }}
                 </small>
               </p>
@@ -55,7 +56,7 @@
                 <p>
                   <strong>{{ entry.leader.isChampion ? 'Champion:' : 'Leader:' }}</strong>
                   {{ entry.leader.name }}{{ entry.leader.isChampion ? ' 🏆' : '' }} —
-                  {{ entry.leader.points }} pts@if (entry.leader.bike) { {{ ' (' + entry.leader.bike + ')' }} }
+                  <span class="dll-num">{{ entry.leader.points }}</span> pts@if (entry.leader.bike) { {{ ' (' + entry.leader.bike + ')' }} }
                 </p>
               } @else {
                 <p class="u-text-muted">No standings yet.</p>

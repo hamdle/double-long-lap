@@ -1,9 +1,9 @@
 .dll-class-note {
-  padding: 0.75rem 1rem;
-  background: rgba(36, 89, 143, 0.08);
-  border-left: 3px solid #24598f;
-  border-radius: 2px;
+  padding: var(--dll-sp-md) var(--dll-sp-lg);
+  background: var(--dll-info-bg);
+  border-left: 3px solid var(--dll-info-border);
+  border-radius: var(--dll-radius-xs);
 
-  p { margin: 0 0 0.5rem; }
+  p { margin: 0 0 var(--dll-sp-sm); }
   p:last-child { margin-bottom: 0; }
 }

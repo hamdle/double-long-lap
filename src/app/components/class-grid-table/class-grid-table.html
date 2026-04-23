@@ -30,8 +30,8 @@
       [class.dll-row--dim]="!r.still_mathematically_alive"
       [attr.title]="!r.still_mathematically_alive ? 'Mathematically eliminated from the championship' : null"
     >
-      <td>{{ r.position ?? '—' }}</td>
-      <td>{{ r.number ?? '—' }}</td>
+      <td class="dll-num">{{ r.position ?? '—' }}</td>
+      <td class="dll-num">{{ r.number ?? '—' }}</td>
       <td>
         <strong>{{ r.name }}</strong>{{ r.isChampion ? ' 🏆' : '' }}
         @if (r.team) {
@@ -50,11 +50,11 @@
           <br /><small class="u-text-muted">{{ r.bike_manufacturer }}</small>
         }
       </td>
-      <td style="text-align: right">{{ r.points ?? '—' }}</td>
-      <td style="text-align: right">
+      <td class="dll-num" style="text-align: right">{{ r.points ?? '—' }}</td>
+      <td class="dll-num" style="text-align: right">
         {{ r.gap_to_leader == null || r.gap_to_leader === 0 ? '—' : '−' + r.gap_to_leader }}
       </td>
-      <td style="text-align: right">{{ r.points_remaining_in_season }}</td>
+      <td class="dll-num" style="text-align: right">{{ r.points_remaining_in_season }}</td>
     </tr>
   </ng-template>
 </p-table>

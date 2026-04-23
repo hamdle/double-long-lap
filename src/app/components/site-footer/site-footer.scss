@@ -1,0 +1,119 @@
+// The footer is a true-black chrome surface, matching the header so the two
+// bookend the page. Colors are theme-independent — in light mode the footer
+// still reads as a dark frame, which is the F1/MotoGP convention.
+.dll-footer {
+  background: var(--dll-ink);
+  color: var(--dll-ink-fg);
+  padding: var(--dll-sp-4xl) 0 var(--dll-sp-xl);
+  margin-top: var(--dll-sp-4xl);
+}
+
+.dll-footer__top {
+  margin-bottom: var(--dll-sp-3xl);
+  align-items: start;
+}
+
+.dll-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dll-sp-xs);
+}
+
+.dll-footer__wordmark {
+  font-family: var(--dll-font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.005em;
+  margin: 0;
+  color: #ffffff;
+}
+
+.dll-footer__tagline {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9375rem;
+}
+
+.dll-footer__links {
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--dll-sp-sm);
+  }
+
+  a {
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    font-size: 0.9375rem;
+    transition: color 120ms ease;
+
+    &:hover,
+    &:focus-visible {
+      color: #ffffff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+.dll-footer__heading {
+  font-family: var(--dll-font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0 0 var(--dll-sp-md);
+}
+
+.dll-footer__newsletter {
+  padding-top: var(--dll-sp-xl);
+  padding-bottom: var(--dll-sp-xl);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+// Legal strip — separated by a hairline divider, smaller muted text, theme
+// toggle aligned to the right. On mobile everything stacks and the toggle
+// aligns to the left for consistency.
+.dll-footer__legal {
+  padding-top: var(--dll-sp-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  align-items: center;
+}
+
+.dll-footer__copyright {
+  p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+}
+
+.dll-footer__theme {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--dll-sp-md);
+}
+
+.dll-footer__theme-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 47rem) {
+  .dll-footer__top {
+    row-gap: var(--dll-sp-xl);
+  }
+  .dll-footer__theme {
+    justify-content: flex-start;
+    padding-top: var(--dll-sp-md);
+  }
+}

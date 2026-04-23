@@ -8,52 +8,57 @@ main {
   flex: 1;
 }
 
+// The header is a true-black "chrome" surface in both light and dark app
+// themes — it frames the page and lets the brand red work as an accent on
+// nav-active underlines rather than as a background fill.
 .dll-header {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--p-primary-color);
-  color: #ffffff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: var(--dll-ink);
+  color: var(--dll-ink-fg);
+  border-bottom: 1px solid var(--dll-ink-border);
 
-  :host-context(html.is-dark) & {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-  }
-
-  // Menubar item + icon tokens forced to white on the red header
-  // (PrimeNG's defaults inherit from content.color, which is black/white
-  // depending on theme — we want white in both)
-  --p-menubar-item-color: #ffffff;
+  // PrimeNG Menubar overrides — white-on-ink in all states.
+  --p-menubar-background: transparent;
+  --p-menubar-border-color: transparent;
+  --p-menubar-color: #ffffff;
+  --p-menubar-item-color: rgba(255, 255, 255, 0.78);
   --p-menubar-item-focus-color: #ffffff;
   --p-menubar-item-active-color: #ffffff;
-  --p-menubar-item-icon-color: #ffffff;
+  --p-menubar-item-focus-background: rgba(255, 255, 255, 0.06);
+  --p-menubar-item-active-background: transparent;
+  --p-menubar-item-icon-color: rgba(255, 255, 255, 0.72);
   --p-menubar-item-icon-focus-color: #ffffff;
   --p-menubar-item-icon-active-color: #ffffff;
   --p-menubar-mobile-button-color: #ffffff;
+  --p-menubar-mobile-button-hover-background: rgba(255, 255, 255, 0.08);
+  --p-menubar-mobile-button-hover-color: #ffffff;
+  --p-menubar-submenu-background: var(--dll-ink);
+  --p-menubar-submenu-border-color: var(--dll-ink-border);
 
+  // The Menubar host element is rendered by app.html so it picks up this
+  // component's view-encapsulation scope. Rules that need to reach inside
+  // PrimeNG's own template (item links, submenu panels, mobile overlay)
+  // live in styles.scss — see the ".dll-header descendants" block there.
   :where(.p-menubar) {
     background: transparent;
     border: none;
     color: inherit;
+    padding: var(--dll-sp-sm) var(--dll-sp-lg);
   }
 }
 
+// Brand wordmark — display font, tight tracking, reads as a logotype rather
+// than a menu label.
 .dll-brand {
   display: inline-block;
-  padding: 0 var(--vf-sph-small);
-  font-weight: 550;
+  padding: 0 var(--dll-sp-sm);
+  font-family: var(--dll-font-display);
+  font-weight: 650;
   font-size: 1.125rem;
-  color: inherit;
+  color: #ffffff;
   text-decoration: none;
-  letter-spacing: 0.01em;
+  letter-spacing: -0.005em;
 }
 
-.dll-footer__about {
-  text-align: right;
-}
-
-@media (max-width: 47rem) {
-  .dll-footer__about {
-    text-align: left;
-  }
-}

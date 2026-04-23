@@ -15,13 +15,14 @@
     <div class="row">
       <div class="col-8">
         <p><a routerLink="/standings">← All classes</a></p>
-        <h1>{{ displayName() }}</h1>
-        @if (cls()) {
-          <p class="u-text-muted h4">
-            {{ cls()!.season_year }} championship · Round {{ cls()!.round_number }} ·
-            {{ cls()!.track_code }}
+        @if (cls(); as c) {
+          <p class="eyebrow u-text-muted">
+            <span class="dll-num">{{ c.season_year }}</span> championship · Round
+            <span class="dll-num">{{ c.round_number }}</span> · {{ c.track_code }}
           </p>
-        } @else {
+        }
+        <h1>{{ displayName() }}</h1>
+        @if (!cls()) {
           <p class="u-text-muted h4">
             MotoAmerica class — no season-long standings published.
           </p>

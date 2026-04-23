@@ -3,17 +3,6 @@
     <ng-template #start>
       <a routerLink="/" class="dll-brand">Double Long Lap</a>
     </ng-template>
-    <ng-template #end>
-      <p-button
-        [icon]="themeIcon()"
-        severity="secondary"
-        [text]="true"
-        [rounded]="true"
-        size="small"
-        (onClick)="cycleTheme()"
-        [attr.aria-label]="themeAriaLabel()"
-      />
-    </ng-template>
   </p-menubar>
 </header>
 
@@ -21,14 +10,4 @@
   <router-outlet />
 </main>
 
-<footer class="strip strip--dark dll-footer">
-  <div class="row">
-    <div class="col-6">
-      <dll-newsletter-signup />
-    </div>
-    <div class="col-6 dll-footer__about">
-      <p>Double Long Lap — MotoAmerica, lap by lap.</p>
-      <p><small>An independent guide to MotoAmerica.</small></p>
-    </div>
-  </div>
-</footer>
+<dll-site-footer />

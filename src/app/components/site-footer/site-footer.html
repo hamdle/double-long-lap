@@ -1,0 +1,59 @@
+<footer class="dll-footer">
+  <div class="row dll-footer__top">
+    <div class="col-4 dll-footer__brand">
+      <p class="dll-footer__wordmark">Double Long Lap</p>
+      <p class="dll-footer__tagline">MotoAmerica, lap by lap.</p>
+    </div>
+
+    <nav class="col-4 dll-footer__links" aria-label="Explore">
+      <h4 class="dll-footer__heading">Explore</h4>
+      <ul>
+        @for (item of exploreLinks; track item.link) {
+          <li><a [routerLink]="item.link">{{ item.label }}</a></li>
+        }
+      </ul>
+    </nav>
+
+    <nav class="col-4 dll-footer__links" aria-label="Series">
+      <h4 class="dll-footer__heading">Series</h4>
+      <ul>
+        @for (item of seriesLinks; track item.link) {
+          <li><a [routerLink]="item.link">{{ item.label }}</a></li>
+        }
+      </ul>
+    </nav>
+  </div>
+
+  <div class="row dll-footer__newsletter">
+    <div class="col-12">
+      <dll-newsletter-signup />
+    </div>
+  </div>
+
+  <div class="row dll-footer__legal">
+    <div class="col-8 dll-footer__copyright">
+      <p>
+        &copy; {{ copyrightYear() }} Double Long Lap. An independent guide to
+        MotoAmerica — not affiliated with MotoAmerica, Inc.
+      </p>
+    </div>
+    <div class="col-4 dll-footer__theme">
+      <span id="dll-theme-label" class="dll-footer__theme-label">Theme</span>
+      <p-selectButton
+        [options]="themeOptions"
+        [ngModel]="themePref()"
+        (onChange)="onThemeChange($event)"
+        optionLabel="label"
+        optionValue="value"
+        [allowEmpty]="false"
+        ariaLabelledBy="dll-theme-label"
+        styleClass="dll-footer__theme-toggle"
+      >
+        <ng-template #item let-option>
+          <i [class]="option.icon" aria-hidden="true"></i>
+          <span class="dll-footer__theme-label-text">{{ option.label }}</span>
+        </ng-template>
+      </p-selectButton>
+    </div>
+  </div>
+</footer>

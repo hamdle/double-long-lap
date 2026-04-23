@@ -62,7 +62,8 @@
   .u-text-muted {
     color: rgba(0, 0, 0, 0.6);
   }
-  html.is-dark .u-text-muted {
+  html.is-dark .u-text-muted,
+  .strip--dark .u-text-muted {
     color: rgba(255, 255, 255, 0.6);
   }
 

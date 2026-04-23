@@ -1,0 +1,12 @@
+.h4 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 275;
+}
+
+.dll-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--vf-sph-small);
+  margin-top: var(--vf-sph-large);
+}

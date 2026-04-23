@@ -1,0 +1,28 @@
+<section class="strip">
+  <div class="row">
+    <div class="col-8">
+      <h1>The MotoAmerica fan hub.</h1>
+      <p class="u-text-muted h4">
+        Standings, schedule, results, rider profiles, and venue guides — all in one place.
+        Free, fan-built, and growing with the sport.
+      </p>
+      <p>
+        <p-chip label="Newsletter signup coming soon" />
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="strip strip--shallow">
+  <div class="row">
+    @for (s of sections; track s.href) {
+      <div class="col-4">
+        <a [routerLink]="s.href" class="dll-section-card">
+          <p-card [header]="s.title + ' →'">
+            <p>{{ s.blurb }}</p>
+          </p-card>
+        </a>
+      </div>
+    }
+  </div>
+</section>

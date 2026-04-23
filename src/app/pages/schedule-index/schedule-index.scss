@@ -1,0 +1,19 @@
+.h4 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 275;
+}
+
+.dll-countdown {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 550;
+  margin-top: var(--vf-sph-small);
+}
+
+.dll-nextup__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--vf-sph-large);
+  margin-top: var(--vf-sph-large);
+}

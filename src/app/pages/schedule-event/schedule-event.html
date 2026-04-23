@@ -1,0 +1,64 @@
+@if (notFound()) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <p><a routerLink="/schedule">← Full schedule</a></p>
+        <h1>Round not found</h1>
+        <p class="u-text-muted">No event matches <code>{{ eventSlug() }}</code>.</p>
+      </div>
+    </div>
+  </section>
+} @else if (event(); as e) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <p><a routerLink="/schedule">← Full schedule</a></p>
+        <h1>{{ e.title }}</h1>
+        <p class="u-text-muted h4">
+          Round {{ e.order }} · {{ e.location }} · {{ dateRange() }}
+        </p>
+        <div class="dll-actions">
+          <a [href]="e.details_url" target="_blank" rel="noopener noreferrer">
+            <p-button label="Official event page ↗" severity="success" />
+          </a>
+          <p-button [routerLink]="['/venues', e.event_slug]" label="Venue info →" severity="secondary" [outlined]="true" />
+          @if (hasGuide()) {
+            <p-button
+              [routerLink]="['/venues', e.event_slug, 'travel']"
+              label="Travel guide →"
+              severity="secondary"
+              [outlined]="true"
+            />
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-12">
+        <h2>Who to watch</h2>
+        <p class="u-text-muted">
+          <small>Top three in each class heading into this weekend.</small>
+        </p>
+      </div>
+      @for (p of podiums; track p.class_slug) {
+        <div class="col-4">
+          <p-card>
+            <h3>
+              <a [routerLink]="['/standings', p.class_slug]">{{ p.class_name }}</a>
+            </h3>
+            <ol>
+              @for (r of p.top_three; track r.slug) {
+                <li>
+                  <a [routerLink]="['/riders', r.slug]">{{ r.name }}</a> — {{ r.points }} pts
+                </li>
+              }
+            </ol>
+          </p-card>
+        </div>
+      }
+    </div>
+  </section>
+}

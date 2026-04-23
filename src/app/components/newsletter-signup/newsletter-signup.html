@@ -1,0 +1,37 @@
+@if (enabled()) {
+  <form
+    [action]="action()"
+    method="post"
+    target="buttondown-popup"
+    (submit)="onSubmit($event)"
+    class="dll-newsletter"
+  >
+    <p><strong>Get the weekly lap report.</strong></p>
+    <p class="u-text-muted">
+      <small>Race previews, standings moves, and venue guides — straight to your inbox.</small>
+    </p>
+    <div class="dll-newsletter__row">
+      <label for="newsletter-email" class="u-hide">Email</label>
+      <input
+        pInputText
+        id="newsletter-email"
+        name="email"
+        type="email"
+        placeholder="you@example.com"
+        [formControl]="email"
+        autocomplete="email"
+        required
+      />
+      <p-button type="submit" label="Subscribe" severity="success" [disabled]="email.invalid" />
+    </div>
+  </form>
+} @else {
+  <div class="dll-newsletter">
+    <p><strong>Get the weekly lap report.</strong></p>
+    <p class="u-text-muted">
+      <small>
+        Race previews, standings moves, and venue guides — straight to your inbox. Signup launching soon.
+      </small>
+    </p>
+  </div>
+}

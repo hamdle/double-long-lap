@@ -1,0 +1,82 @@
+@if (notFound()) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <p><a routerLink="/riders">← All riders</a></p>
+        <h1>Rider not found</h1>
+        <p class="u-text-muted">No rider matches <code>{{ slug() }}</code>.</p>
+      </div>
+    </div>
+  </section>
+} @else if (rider(); as r) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <p><a routerLink="/riders">← All riders</a></p>
+        <h1>{{ r.name }}</h1>
+        <p class="u-text-muted h4">
+          {{ r.bike ? 'Rides a ' + r.bike : 'MotoAmerica rider' }}
+        </p>
+        @if (classChips().length > 0) {
+          <p class="dll-classes">
+            <span class="u-text-muted">Races in: </span>
+            @for (chip of classChips(); track chip.slug; let i = $index) {
+              @if (i > 0) {
+                <span aria-hidden="true"> · </span>
+              }
+              <a [routerLink]="['/standings', chip.slug]">{{ chip.label }}</a>
+            }
+          </p>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-8">
+        <h2>Current championship</h2>
+        @if (r.appearances.length === 0) {
+          <p class="u-text-muted">No current standings.</p>
+        } @else {
+          <p-table
+            [value]="r.appearances"
+            aria-label="Current championship standings"
+            [tableStyle]="{ 'min-width': '32rem' }"
+            responsiveLayout="scroll"
+          >
+            <ng-template #header>
+              <tr>
+                <th>Class</th>
+                <th>Season</th>
+                <th style="text-align: right">Position</th>
+                <th style="text-align: right">Points</th>
+              </tr>
+            </ng-template>
+            <ng-template #body let-a>
+              <tr>
+                <td>
+                  <a [routerLink]="['/standings', a.class_slug]">{{ a.class_name }}</a>
+                </td>
+                <td>{{ a.season_year }}</td>
+                <td style="text-align: right">
+                  {{ a.position }}{{ a.isChampion ? ' 🏆' : '' }}
+                </td>
+                <td style="text-align: right">{{ a.points }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        }
+
+        <h2>Bio</h2>
+        <p class="u-text-muted">
+          Full rider bio coming soon — number, team, career highlights, and career stats.
+        </p>
+      </div>
+
+      <div class="col-4">
+        <dll-affiliate-block [title]="affiliateTitle()" [blurb]="affiliateBlurb()" />
+      </div>
+    </div>
+  </section>
+}

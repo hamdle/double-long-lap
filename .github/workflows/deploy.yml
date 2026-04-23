@@ -1,5 +1,10 @@
 name: Deploy to GitHub Pages
 
+# Builds the Angular 21 + PrimeNG static bundle from the repo root and
+# deploys it to GitHub Pages at doublelonglap.com. The previous Next.js
+# pipeline was retired in the Phase 6 cutover; the rollback point lives at
+# the `pre-angular` git tag.
+
 on:
   push:
     branches: [main]
@@ -28,7 +33,7 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./dist/dll/browser
 
   deploy:
     needs: build

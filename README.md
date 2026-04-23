@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Double Long Lap
 
-## Getting Started
+A fan-built MotoAmerica hub: standings, schedule, results, rider profiles, venue
+guides. Static-deployed to GitHub Pages at
+[doublelonglap.com](https://doublelonglap.com).
 
-First, run the development server:
+Built with Angular 21 + PrimeNG. Theme is a custom PrimeNG preset derived from
+Canonical's Vanilla Framework design tokens. Output is fully prerendered (one
+HTML file per route) so Googlebot sees the same content as a browser.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Repo layout
+
+```
+src/app/
+├── data/        ← framework-neutral data layer (slug, country, travel-guides,
+│                  class-guides, class-notes, data-types, data, generated)
+├── pages/       ← route components (home, standings, schedule, results,
+│                  riders, venues + their detail pages, coming-soon)
+├── components/  ← shared components (newsletter-signup, sponsorship,
+│                  class-guide, class-notes, class-grid-table, affiliate-block)
+├── seo/         ← SeoService + JSON-LD injection
+├── theme/       ← VanillaPreset + dark-mode service
+└── app.{ts,html,scss,config.ts,routes.ts,routes.server.ts}
+scripts/
+├── embed-data.ts   ← codegen: scrapers/output/*.json → src/app/data/generated.ts
+├── build-og.ts     ← generates public/og-default.png (1200×630)
+├── build-sitemap.ts← generates dist/dll/browser/sitemap.xml + robots.txt
+└── diff-routes.ts  ← (manual) URL parity audit, kept for future migrations
+scrapers/        ← MotoAmerica.com scrapers (cheerio). Run manually.
+docs/            ← migration plan and research (not committed by the assistant)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Working on it
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Requires Node 22+.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run build           # prebuild → ng build → postbuild (sitemap + robots)
+npm start               # dev server at http://localhost:4200
+npm run embed-data      # regenerate src/app/data/generated.ts only
+npm run diff-routes     # parity audit (needs both deployments present)
+```
 
-## Learn More
+Static output lands in `dist/dll/browser/`. Prerendered routes are discovered
+from `src/app/app.routes.ts` and parameterized via `getPrerenderParams` in
+`src/app/app.routes.server.ts`. Per-route SEO is set via `SeoService`.
 
-To learn more about Next.js, take a look at the following resources:
+## Refreshing the scraped data
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The site reads from JSON snapshots in `scrapers/output/`. Refresh them manually
+when MotoAmerica updates standings/schedule:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run refresh         # all scrapers + stats packet
+# or individual:
+npm run scrape:standings
+npm run scrape:schedule
+npm run scrape:classes
+npm run scrape:riders
+npm run packet:stats
+```
 
-## Deploy on Vercel
+After refreshing, `npm run build` re-embeds the new data into the bundle.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Push to `main`. `.github/workflows/deploy.yml` runs `npm ci && npm run build`
+and uploads `dist/dll/browser/` as the GitHub Pages artifact.
+
+The pre-cutover state (last shipping Next.js commit) is preserved at the
+`pre-angular` git tag.

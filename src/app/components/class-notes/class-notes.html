@@ -1,0 +1,31 @@
+<aside class="dll-class-note" role="complementary" aria-label="Class note">
+  @for (para of paragraphs(); track $index) {
+    @if (para.variant === 'muted-small') {
+      <p class="u-text-muted">
+        <small>
+          @for (seg of para.segments; track $index) {
+            @switch (seg.kind) {
+              @case ('strong') { <strong>{{ seg.text }}</strong> }
+              @case ('link') {
+                <a [routerLink]="['/standings', seg.classSlug]">{{ seg.label }}</a>
+              }
+              @default { {{ seg.text }} }
+            }
+          }
+        </small>
+      </p>
+    } @else {
+      <p>
+        @for (seg of para.segments; track $index) {
+          @switch (seg.kind) {
+            @case ('strong') { <strong>{{ seg.text }}</strong> }
+            @case ('link') {
+              <a [routerLink]="['/standings', seg.classSlug]">{{ seg.label }}</a>
+            }
+            @default { {{ seg.text }} }
+          }
+        }
+      </p>
+    }
+  }
+</aside>

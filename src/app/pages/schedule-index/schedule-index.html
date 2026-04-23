@@ -1,0 +1,87 @@
+<section class="strip">
+  <div class="row">
+    <div class="col-8">
+      <h1>{{ seasonYear }} Schedule</h1>
+      <p class="u-text-muted h4">Ten rounds of MotoAmerica racing.</p>
+    </div>
+  </div>
+</section>
+
+@if (nextUp) {
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-12">
+        <p-card
+          [header]="(nextUp.state === 'live' ? 'Racing now: ' : 'Next up: ') + nextUp.title"
+          styleClass="dll-nextup"
+        >
+          <p>
+            <strong>{{ nextUp.location }}</strong><br />
+            {{ nextUp.dateRange }}
+          </p>
+          @if (nextUp.state === 'upcoming') {
+            <p class="dll-countdown">{{ daysLabel(nextUp.daysToGo) }}</p>
+          } @else {
+            <p class="dll-countdown">Happening this weekend</p>
+          }
+          <div class="dll-nextup__actions">
+            <p-button
+              [routerLink]="['/schedule', nextUp.event_slug]"
+              label="Weekend guide →"
+              severity="success"
+            />
+            <a [href]="nextUp.details_url" target="_blank" rel="noopener noreferrer">
+              Official details ↗
+            </a>
+          </div>
+        </p-card>
+      </div>
+    </div>
+  </section>
+}
+
+<section class="strip strip--shallow">
+  <div class="row">
+    <div class="col-12">
+      <p-table
+        [value]="events"
+        aria-label="MotoAmerica calendar"
+        [tableStyle]="{ 'min-width': '40rem' }"
+        responsiveLayout="scroll"
+      >
+        <ng-template #header>
+          <tr>
+            <th style="width: 4rem">Rd</th>
+            <th>Event</th>
+            <th>Venue</th>
+            <th>Dates</th>
+            <th style="width: 9rem">Status</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-e>
+          <tr>
+            <td>{{ e.order }}</td>
+            <td>
+              <a [routerLink]="['/schedule', e.event_slug]">{{ e.title }}</a>
+            </td>
+            <td>{{ e.location }}</td>
+            <td>{{ e.dateRange }}</td>
+            <td>
+              @switch (e.state) {
+                @case ('past') {
+                  <p-tag value="Done" severity="secondary" />
+                }
+                @case ('live') {
+                  <p-tag value="Live" severity="danger" />
+                }
+                @default {
+                  <small class="u-text-muted">in {{ e.daysToGo }}d</small>
+                }
+              }
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>

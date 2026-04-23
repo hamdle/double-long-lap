@@ -1,0 +1,101 @@
+// Global styles for the Angular + PrimeNG spike. Vanilla Framework's CSS is
+// intentionally NOT loaded — see src/app/theme/vanilla-preset.ts for the
+// rationale. Only Vanilla's *tokens* (fonts, palette, spacing) are reused.
+@layer app, primeng;
+
+@layer app {
+  :root {
+    --vf-font-base:
+      'Ubuntu variable', 'Ubuntu', -apple-system, 'Segoe UI', 'Roboto',
+      'Oxygen', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    --vf-font-mono:
+      'Ubuntu Mono variable', 'Ubuntu Mono', Consolas, Monaco, Courier,
+      monospace;
+
+    --vf-sp-unit: 0.5rem;
+    --vf-sph-small: var(--vf-sp-unit);
+    --vf-sph-large: calc(var(--vf-sp-unit) * 2);
+    --vf-spv-strip-shallow: calc(var(--vf-sp-unit) * 3);
+    --vf-spv-strip-regular: calc(var(--vf-sp-unit) * 8);
+
+    --vf-bg-light: #ffffff;
+    --vf-bg-light-alt: #f7f7f7;
+    --vf-bg-dark: #262626;
+    --vf-bg-dark-alt: #202020;
+    --vf-text-light: #000000;
+    --vf-text-dark: #ffffff;
+
+    --p-font-family: var(--vf-font-base);
+  }
+
+  html,
+  body {
+    height: 100%;
+    margin: 0;
+  }
+
+  body {
+    font-family: var(--vf-font-base);
+    font-size: 1rem;
+    line-height: 1.5;
+    background: var(--vf-bg-light);
+    color: var(--vf-text-light);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  html.is-dark body {
+    background: var(--vf-bg-dark);
+    color: var(--vf-text-dark);
+  }
+
+  // Vanilla-style typography scale, transcribed from
+  // node_modules/vanilla-framework/scss/_settings_spacing.scss
+  h1, .h1 { font-size: 2.5rem; line-height: 3rem; font-weight: 550; margin: 0 0 1.5rem; }
+  h2, .h2 { font-size: 2.5rem; line-height: 3rem; font-weight: 180;  margin: 0 0 1.5rem; }
+  h3, .h3 { font-size: 1.5rem; line-height: 2rem; font-weight: 550; margin: 0 0 1.5rem; }
+  h4, .h4 { font-size: 1.5rem; line-height: 2rem; font-weight: 275; margin: 0 0 1.5rem; }
+  h5, .h5 { font-size: 1rem;   line-height: 1.5rem; font-weight: 550; margin: 0 0 1.5rem; }
+  p { margin: 0 0 1.5rem; }
+
+  .u-text-muted {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  html.is-dark .u-text-muted {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  // 12-column grid, faithful to Vanilla's row/col- contract
+  .row {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--vf-sph-large);
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 var(--vf-sph-large);
+  }
+  @for $i from 1 through 12 {
+    .col-#{$i} { grid-column: span #{$i}; }
+  }
+  @media (max-width: 47rem) {
+    @for $i from 1 through 12 {
+      .col-#{$i} { grid-column: span 12; }
+    }
+  }
+
+  // Vanilla "strip" — a full-width section with vertical breathing room
+  .strip {
+    padding: var(--vf-spv-strip-regular) 0;
+  }
+  .strip--shallow {
+    padding: var(--vf-spv-strip-shallow) 0;
+  }
+  .strip--dark {
+    background: var(--vf-bg-dark);
+    color: var(--vf-text-dark);
+  }
+  html.is-dark .strip--dark {
+    background: var(--vf-bg-dark-alt);
+  }
+}

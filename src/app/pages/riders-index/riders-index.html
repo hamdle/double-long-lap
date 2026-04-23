@@ -1,0 +1,42 @@
+<section class="strip">
+  <div class="row">
+    <div class="col-8">
+      <h1>Riders</h1>
+      <p class="u-text-muted h4">
+        Every rider in the top of each class&rsquo;s current standings.
+      </p>
+      <p>Click a name for the profile. Bios, numbers, and team data are in progress.</p>
+    </div>
+  </div>
+</section>
+
+<section class="strip strip--shallow">
+  <div class="row">
+    <div class="col-12">
+      <p-table
+        [value]="riders"
+        aria-label="Riders in current top standings"
+        sortMode="single"
+        [tableStyle]="{ 'min-width': '40rem' }"
+        responsiveLayout="scroll"
+      >
+        <ng-template #header>
+          <tr>
+            <th pSortableColumn="name">Rider <p-sortIcon field="name" /></th>
+            <th pSortableColumn="bike">Bike <p-sortIcon field="bike" /></th>
+            <th>Classes</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-r>
+          <tr>
+            <td>
+              <a [routerLink]="['/riders', r.slug]">{{ r.name }}</a>
+            </td>
+            <td>{{ r.bike || '—' }}</td>
+            <td>{{ r.classesLabel }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>

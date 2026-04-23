@@ -1,0 +1,30 @@
+<aside
+  class="dll-affiliate"
+  role="complementary"
+  [attr.aria-label]="title()"
+>
+  <h4 class="dll-affiliate__title">{{ title() }}</h4>
+  @if (blurb()) {
+    <p class="dll-affiliate__blurb">{{ blurb() }}</p>
+  }
+  @if (hasLinks()) {
+    <ul class="dll-affiliate__links">
+      @for (l of links(); track l.href) {
+        <li>
+          <a [href]="l.href" target="_blank" rel="sponsored noopener noreferrer">
+            {{ l.label }}@if (l.vendor) { {{ ' · ' + l.vendor }} }
+          </a>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p class="u-text-muted">
+      <small>Affiliate partnerships coming soon. Reach out if you&rsquo;re interested.</small>
+    </p>
+  }
+  <p class="u-text-muted dll-affiliate__disclaimer">
+    <small>
+      Links marked here may be affiliate links. We may earn a commission at no extra cost to you.
+    </small>
+  </p>
+</aside>

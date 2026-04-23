@@ -1,0 +1,79 @@
+@if (notFound()) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <p><a routerLink="/standings">← All classes</a></p>
+        <h1>Class not found</h1>
+        <p class="u-text-muted">
+          We don&rsquo;t have a class matching <code>{{ classSlug() }}</code>.
+        </p>
+      </div>
+    </div>
+  </section>
+} @else {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <p><a routerLink="/standings">← All classes</a></p>
+        <h1>{{ displayName() }}</h1>
+        @if (cls()) {
+          <p class="u-text-muted h4">
+            {{ cls()!.season_year }} championship · Round {{ cls()!.round_number }} ·
+            {{ cls()!.track_code }}
+          </p>
+        } @else {
+          <p class="u-text-muted h4">
+            MotoAmerica class — no season-long standings published.
+          </p>
+        }
+        @if (cls()?.full_standings_pdf_url; as pdf) {
+          <p>
+            <a [href]="pdf" target="_blank" rel="noopener noreferrer">
+              <p-button label="Full standings PDF ↗" severity="success" />
+            </a>
+          </p>
+        }
+      </div>
+    </div>
+  </section>
+
+  @if (notes(); as paragraphs) {
+    <section class="strip strip--shallow">
+      <div class="row">
+        <div class="col-10">
+          <dll-class-notes [paragraphs]="paragraphs" />
+        </div>
+      </div>
+    </section>
+  }
+
+  @if (guide(); as g) {
+    <dll-class-guide [guide]="g" />
+  }
+
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-12">
+        <h2>Standings &amp; grid</h2>
+        @if (!cls() && grid().length === 0) {
+          <p class="u-text-muted">
+            This class doesn&rsquo;t publish a season-long championship — results are scored
+            per event rather than rolled up into a points table.
+          </p>
+        } @else if (grid().length === 0) {
+          <p class="u-text-muted">No rider data available for this class yet.</p>
+        } @else {
+          <dll-class-grid-table [riders]="grid()" [className]="displayName()" />
+          <p class="u-text-muted">
+            <small>
+              Tap a column header to sort. Ranked riders come from the latest points sheet;
+              unranked entries are pulled from the class roster.@if (cls()?.full_standings_pdf_url) {
+                See the PDF for the complete results.
+              }
+            </small>
+          </p>
+        }
+      </div>
+    </div>
+  </section>
+}

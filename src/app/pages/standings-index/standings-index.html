@@ -1,0 +1,107 @@
+<section class="strip">
+  <div class="row">
+    <div class="col-8">
+      <h1>Standings</h1>
+      <p class="u-text-muted h4">Championship points across every MotoAmerica class.</p>
+      <p>
+        <small class="u-text-muted">
+          Updated {{ scrapedAt }} from <a [href]="sourceUrl">motoamerica.com/standings</a>.
+        </small>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="strip strip--shallow">
+  <div class="row">
+    <div class="col-12">
+      <dll-sponsorship section="standings" />
+    </div>
+  </div>
+</section>
+
+@for (season of seasons; track season.year) {
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="dll-season-heading">
+          {{ season.year }}
+          @if (season.isCurrent) {
+            <p-chip label="Current season" />
+          } @else {
+            <span class="u-text-muted dll-season-tag">— final standings</span>
+          }
+        </h2>
+        @if (!season.isCurrent) {
+          <p class="u-text-muted">
+            <small>
+              Classes that haven&rsquo;t raced yet in {{ seasons[0].year }}. These show the
+              final {{ season.year }} standings until the new season&rsquo;s first round is scored.
+            </small>
+          </p>
+        }
+      </div>
+    </div>
+    <div class="row">
+      @for (entry of season.classes; track entry.cls.class_slug) {
+        <div class="col-6">
+          <a
+            [routerLink]="['/standings', entry.cls.class_slug]"
+            class="dll-class-card"
+          >
+            <p-card [header]="entry.cls.class_name + ' →'">
+              @if (entry.tagline) {
+                <p class="u-text-muted">{{ entry.tagline }}</p>
+              }
+              <p class="u-text-muted">
+                <small>
+                  {{ entry.cls.season_year }} · Round {{ entry.cls.round_number }} ·
+                  {{ entry.cls.track_code }}
+                </small>
+              </p>
+              @if (entry.leader) {
+                <p>
+                  <strong>{{ entry.leader.isChampion ? 'Champion:' : 'Leader:' }}</strong>
+                  {{ entry.leader.name }}{{ entry.leader.isChampion ? ' 🏆' : '' }} —
+                  {{ entry.leader.points }} pts@if (entry.leader.bike) { {{ ' (' + entry.leader.bike + ')' }} }
+                </p>
+              } @else {
+                <p class="u-text-muted">No standings yet.</p>
+              }
+            </p-card>
+          </a>
+        </div>
+      }
+    </div>
+  </section>
+}
+
+@if (hasGuideOnly()) {
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-12">
+        <h2>Support classes &amp; programs</h2>
+        <p class="u-text-muted">
+          <small>
+            MotoAmerica classes and programs that race at select weekends rather than contesting
+            a full-season points championship.
+          </small>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      @for (g of guideOnly; track g.class_slug) {
+        <div class="col-6">
+          <a [routerLink]="['/standings', g.class_slug]" class="dll-class-card">
+            <p-card [header]="g.display_name + ' →'">
+              <p class="u-text-muted">{{ g.tagline }}</p>
+              <p class="u-text-muted">
+                <small>No season-long points table — results scored per event.</small>
+              </p>
+            </p-card>
+          </a>
+        </div>
+      }
+    </div>
+  </section>
+}

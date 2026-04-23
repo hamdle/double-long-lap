@@ -1,0 +1,60 @@
+<p-table
+  [value]="riders()"
+  [attr.aria-label]="className() + ' standings and grid'"
+  [customSort]="true"
+  (sortFunction)="customSort($event)"
+  sortMode="single"
+  sortField="position"
+  [sortOrder]="1"
+  [tableStyle]="{ 'min-width': '60rem' }"
+  responsiveLayout="scroll"
+>
+  <ng-template #header>
+    <tr>
+      <th pSortableColumn="position" style="width: 4rem">Pos<p-sortIcon field="position" /></th>
+      <th pSortableColumn="number" style="width: 4rem">#<p-sortIcon field="number" /></th>
+      <th pSortableColumn="name">Rider<p-sortIcon field="name" /></th>
+      <th pSortableColumn="nationality" style="width: 10rem">Country<p-sortIcon field="nationality" /></th>
+      <th pSortableColumn="bike_manufacturer">Bike<p-sortIcon field="bike_manufacturer" /></th>
+      <th pSortableColumn="points" style="width: 6rem; text-align: right">
+        Points<p-sortIcon field="points" />
+      </th>
+      <th pSortableColumn="gap_to_leader" style="width: 6rem; text-align: right">
+        Gap<p-sortIcon field="gap_to_leader" />
+      </th>
+      <th style="width: 7rem; text-align: right">Remaining</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-r>
+    <tr
+      [class.dll-row--dim]="!r.still_mathematically_alive"
+      [attr.title]="!r.still_mathematically_alive ? 'Mathematically eliminated from the championship' : null"
+    >
+      <td>{{ r.position ?? '—' }}</td>
+      <td>{{ r.number ?? '—' }}</td>
+      <td>
+        <strong>{{ r.name }}</strong>{{ r.isChampion ? ' 🏆' : '' }}
+        @if (r.team) {
+          <br /><small class="u-text-muted">{{ r.team }}</small>
+        }
+      </td>
+      <td>
+        @if (flag(r.nationality); as f) {
+          <span class="dll-flag" aria-hidden="true">{{ f }}</span>
+        }
+        {{ r.nationality ?? '—' }}
+      </td>
+      <td>
+        {{ r.bike ?? '—' }}
+        @if (r.bike_manufacturer && r.bike && r.bike_manufacturer !== r.bike) {
+          <br /><small class="u-text-muted">{{ r.bike_manufacturer }}</small>
+        }
+      </td>
+      <td style="text-align: right">{{ r.points ?? '—' }}</td>
+      <td style="text-align: right">
+        {{ r.gap_to_leader == null || r.gap_to_leader === 0 ? '—' : '−' + r.gap_to_leader }}
+      </td>
+      <td style="text-align: right">{{ r.points_remaining_in_season }}</td>
+    </tr>
+  </ng-template>
+</p-table>

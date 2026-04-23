@@ -1,0 +1,34 @@
+<header class="dll-header">
+  <p-menubar [model]="menu">
+    <ng-template #start>
+      <a routerLink="/" class="dll-brand">Double Long Lap</a>
+    </ng-template>
+    <ng-template #end>
+      <p-button
+        [icon]="themeIcon()"
+        severity="secondary"
+        [text]="true"
+        [rounded]="true"
+        size="small"
+        (onClick)="cycleTheme()"
+        [attr.aria-label]="themeAriaLabel()"
+      />
+    </ng-template>
+  </p-menubar>
+</header>
+
+<main id="main-content">
+  <router-outlet />
+</main>
+
+<footer class="strip strip--dark dll-footer">
+  <div class="row">
+    <div class="col-6">
+      <dll-newsletter-signup />
+    </div>
+    <div class="col-6 dll-footer__about">
+      <p>Double Long Lap — an independent MotoAmerica fan project.</p>
+      <p><small>Not affiliated with MotoAmerica.</small></p>
+    </div>
+  </div>
+</footer>

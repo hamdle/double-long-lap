@@ -1,0 +1,64 @@
+.dll-class-guide__eyebrow {
+  margin-bottom: 0.25rem;
+
+  small {
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+
+.dll-class-guide__hero {
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #091055 0%, #1d3d8c 55%, #d82631 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.dll-class-guide__rules {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 1rem;
+
+  th, td {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    vertical-align: top;
+  }
+
+  th {
+    width: 14rem;
+    font-weight: 550;
+  }
+
+  td {
+    white-space: pre-line;
+  }
+
+  :host-context(html.is-dark) & th,
+  :host-context(html.is-dark) & td {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.dll-class-guide__note {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(36, 89, 143, 0.08);
+  border-left: 3px solid #24598f;
+  border-radius: 2px;
+
+  p { margin: 0; }
+}
+
+.dll-class-guide__source {
+  margin-top: 1rem;
+}

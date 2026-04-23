@@ -1,0 +1,25 @@
+.dll-newsletter {
+  max-width: 28rem;
+}
+
+.dll-newsletter__row {
+  display: flex;
+  gap: var(--vf-sph-small);
+  align-items: stretch;
+}
+
+.dll-newsletter__row input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.u-hide {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

@@ -1,0 +1,71 @@
+<section class="strip strip--shallow" aria-labelledby="class-guide-heading">
+  <div class="row">
+    <div class="col-10">
+      <p-card styleClass="dll-class-guide">
+        <header>
+          <p class="u-text-muted dll-class-guide__eyebrow">
+            <small>Class guide</small>
+          </p>
+          <h2 id="class-guide-heading">{{ guide().tagline }}</h2>
+        </header>
+
+        @if (!guide().image) {
+          <div class="dll-class-guide__hero" aria-hidden="true">
+            {{ guide().display_name }}
+          </div>
+        }
+
+        @if (guide().blurb) {
+          <p>{{ guide().blurb }}</p>
+        }
+
+        <h3>What you&rsquo;re watching</h3>
+        <p>{{ guide().what_you_watch }}</p>
+
+        @if (hasAnySpec()) {
+          <h3>Rules</h3>
+          <table class="dll-class-guide__rules" [attr.aria-label]="guide().display_name + ' technical rules'">
+            <tbody>
+              @if (guide().engine_configurations) {
+                <tr>
+                  <th scope="row">Engine configurations</th>
+                  <td>{{ guide().engine_configurations }}</td>
+                </tr>
+              }
+              @if (guide().minimum_weight) {
+                <tr>
+                  <th scope="row">Minimum weight</th>
+                  <td>{{ guide().minimum_weight }}</td>
+                </tr>
+              }
+              @if (guide().rider_age_limit) {
+                <tr>
+                  <th scope="row">Rider age limit</th>
+                  <td>{{ guide().rider_age_limit }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+
+        <h3>Eligible bikes</h3>
+        <p>{{ guide().eligible_bikes }}</p>
+
+        @if (guide().notes) {
+          <aside class="dll-class-guide__note" role="complementary" aria-label="Class note">
+            <p>{{ guide().notes }}</p>
+          </aside>
+        }
+
+        @if (guide().source_url) {
+          <p class="u-text-muted dll-class-guide__source">
+            <small>
+              Rules sourced from
+              <a [href]="guide().source_url" target="_blank" rel="noopener noreferrer">motoamerica.com</a>.
+            </small>
+          </p>
+        }
+      </p-card>
+    </div>
+  </div>
+</section>

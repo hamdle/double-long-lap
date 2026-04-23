@@ -1,0 +1,64 @@
+@if (notFound()) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <p><a routerLink="/venues">← All venues</a></p>
+        <h1>Travel guide not found</h1>
+        <p class="u-text-muted">
+          We don&rsquo;t have a travel guide for <code>{{ slug() }}</code>.
+        </p>
+      </div>
+    </div>
+  </section>
+} @else if (guide(); as g) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <p><a [routerLink]="['/venues', slug()]">{{ backLabel() }}</a></p>
+        <h1>{{ g.title }}</h1>
+        <p class="u-text-muted h4">{{ g.subtitle }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-8">
+        <h2>Getting there</h2>
+        <ul>
+          @for (a of g.nearestAirports; track a) { <li>{{ a }}</li> }
+        </ul>
+        @if (g.drivingNote) { <p>{{ g.drivingNote }}</p> }
+
+        <h2>Where to stay</h2>
+        @if (g.hotelNote) { <p>{{ g.hotelNote }}</p> }
+
+        @if (g.foodNote) {
+          <h2>Food</h2>
+          <p>{{ g.foodNote }}</p>
+        }
+
+        <h2>Things to do</h2>
+        <ul>
+          @for (t of g.thingsToDo; track t) { <li>{{ t }}</li> }
+        </ul>
+
+        <h2>Track days</h2>
+        @if (g.trackDayNote) { <p>{{ g.trackDayNote }}</p> }
+      </div>
+
+      <div class="col-4">
+        <dll-affiliate-block
+          title="Hotels near the track"
+          blurb="Book a room for race weekend."
+          [links]="g.hotelLinks"
+        />
+        <dll-affiliate-block
+          title="Track days here"
+          blurb="Ride the circuit yourself."
+          [links]="g.trackDayLinks"
+        />
+      </div>
+    </div>
+  </section>
+}

@@ -1,0 +1,28 @@
+<section class="strip">
+  <div class="row">
+    <div class="col-8">
+      <h1>Venues</h1>
+      <p class="u-text-muted h4">
+        Every {{ seasonYear }} round. Click through for track info, travel, and track day
+        availability.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="strip strip--shallow">
+  <div class="row">
+    @for (v of venues; track v.event.event_slug) {
+      <div class="col-4">
+        <a [routerLink]="['/venues', v.event.event_slug]" class="dll-venue-card">
+          <p-card [header]="v.event.location + ' →'">
+            <p class="u-text-muted"><small>Hosting: {{ v.event.title }}</small></p>
+            @if (v.hasGuide) {
+              <p><p-chip label="Travel guide" /></p>
+            }
+          </p-card>
+        </a>
+      </div>
+    }
+  </div>
+</section>

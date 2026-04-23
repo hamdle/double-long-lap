@@ -1,0 +1,55 @@
+@if (notFound()) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <p><a routerLink="/venues">← All venues</a></p>
+        <h1>Venue not found</h1>
+        <p class="u-text-muted">No venue matches <code>{{ slug() }}</code>.</p>
+      </div>
+    </div>
+  </section>
+} @else if (venue(); as v) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <p><a routerLink="/venues">← All venues</a></p>
+        <h1>{{ v.location }}</h1>
+        <p class="u-text-muted h4">{{ v.title }} · {{ dateRange() }}</p>
+        <div class="dll-actions">
+          <a [href]="v.details_url" target="_blank" rel="noopener noreferrer">
+            <p-button label="Official event page ↗" severity="success" />
+          </a>
+          @if (hasGuide()) {
+            <p-button
+              [routerLink]="['/venues', v.event_slug, 'travel']"
+              label="Travel guide →"
+              severity="secondary"
+              [outlined]="true"
+            />
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-8">
+        <h2>Track info</h2>
+        <p class="u-text-muted">
+          Layout, length, corner count, and elevation details are coming soon.
+        </p>
+
+        <h2>Race weekend</h2>
+        <p>Rounds are held {{ dateRange() }}.</p>
+      </div>
+
+      <div class="col-4">
+        <dll-affiliate-block
+          title="Track days at this venue"
+          blurb="Ride the same circuit the pros ride. Find upcoming track days via our partners."
+        />
+      </div>
+    </div>
+  </section>
+}

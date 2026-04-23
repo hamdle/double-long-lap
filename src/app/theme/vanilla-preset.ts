@@ -1,26 +1,28 @@
-// PrimeNG preset that maps Vanilla Framework's design tokens onto PrimeNG's
-// semantic theme. We do NOT load Vanilla's CSS at runtime — its `p-*` class
-// prefix collides with PrimeNG's own `p-*` rendered classes. Instead, every
-// value in this file is sourced from Vanilla's SCSS settings:
+// PrimeNG preset that maps Vanilla Framework's surface tokens onto PrimeNG's
+// semantic theme, with a DLL-specific red primary. We do NOT load Vanilla's
+// CSS at runtime — its `p-*` class prefix collides with PrimeNG's own `p-*`
+// rendered classes. Surface/typography values are sourced from Vanilla's
+// SCSS settings:
 //   node_modules/vanilla-framework/scss/_settings_colors.scss
 //   node_modules/vanilla-framework/scss/_settings_font.scss
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
 
-// Ubuntu Orange ramp built around Vanilla's $color-ubuntu (#E95420).
-// Hand-tuned to give PrimeNG components a believable hover/active spread.
-const ubuntuOrange = {
-  50: '#fef2ed',
-  100: '#fde0d2',
-  200: '#fbc1a5',
-  300: '#f89c72',
-  400: '#f37545',
-  500: '#e95420',
-  600: '#d23f12',
-  700: '#ae2f10',
-  800: '#8a2715',
-  900: '#732413',
-  950: '#3e1008',
+// DLL primary — bright red. 500 is the chosen brand color
+// (oklch(57.7% 0.245 27.325), ≈ Tailwind red-600). Surrounding stops step
+// lightness evenly so hover/active/surface tints feel natural.
+const brandRed = {
+  50: 'oklch(97% 0.02 27)',
+  100: 'oklch(93% 0.05 27)',
+  200: 'oklch(88% 0.09 27)',
+  300: 'oklch(81% 0.15 27)',
+  400: 'oklch(70% 0.22 27)',
+  500: 'oklch(57.7% 0.245 27.325)',
+  600: 'oklch(50% 0.22 27)',
+  700: 'oklch(43% 0.18 27)',
+  800: 'oklch(36% 0.14 27)',
+  900: 'oklch(29% 0.11 27)',
+  950: 'oklch(20% 0.07 27)',
 };
 
 // Warm-grey surface ramp matching Vanilla's neutrals
@@ -52,7 +54,7 @@ export const VanillaPreset = definePreset(Aura, {
     },
   },
   semantic: {
-    primary: ubuntuOrange,
+    primary: brandRed,
     // Vanilla's gray ramp drives PrimeNG's "surface" palette
     // (backgrounds, borders, muted text).
     colorScheme: {
@@ -83,11 +85,11 @@ export const VanillaPreset = definePreset(Aura, {
       dark: {
         surface: warmGrey,
         primary: {
-          // Slightly lighter primary on dark backgrounds for AA contrast
-          color: '{primary.400}',
-          contrastColor: '#111111',
-          hoverColor: '{primary.300}',
-          activeColor: '{primary.200}',
+          // Matches light mode so brand red reads the same in both themes
+          color: '{primary.500}',
+          contrastColor: '#ffffff',
+          hoverColor: '{primary.600}',
+          activeColor: '{primary.700}',
         },
         // Vanilla dark theme: bg #262626, text #fff, alt bg #202020
         formField: {
@@ -109,10 +111,10 @@ export const VanillaPreset = definePreset(Aura, {
   },
 });
 
-// Vanilla brand colors exported as raw values for the few places we need them
+// Brand colors exported as raw values for the few places we need them
 // outside PrimeNG (e.g. theme-color meta tag, accent backgrounds).
 export const VanillaBrand = {
-  ubuntuOrange: '#e95420',
+  primary: 'oklch(57.7% 0.245 27.325)',
   accent: '#0f95a1',
   accentDark: '#70bbc2',
   positive: '#0e8420',

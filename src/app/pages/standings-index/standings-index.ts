@@ -2,7 +2,6 @@ import { Component, OnInit, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Card } from 'primeng/card';
 import { Chip } from 'primeng/chip';
-import { Sponsorship } from '../../components/sponsorship/sponsorship';
 import { CLASS_GUIDES } from '../../data/class-guides';
 import {
   getClassGuide,
@@ -25,7 +24,7 @@ type SeasonGroup = {
 
 @Component({
   selector: 'dll-standings-index',
-  imports: [RouterLink, Card, Chip, Sponsorship],
+  imports: [RouterLink, Card, Chip],
   templateUrl: './standings-index.html',
   styleUrl: './standings-index.scss',
 })

@@ -12,10 +12,29 @@ main {
   position: sticky;
   top: 0;
   z-index: 10;
+  background: var(--p-primary-color);
+  color: #ffffff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
   :host-context(html.is-dark) & {
     border-bottom-color: rgba(255, 255, 255, 0.1);
+  }
+
+  // Menubar item + icon tokens forced to white on the red header
+  // (PrimeNG's defaults inherit from content.color, which is black/white
+  // depending on theme — we want white in both)
+  --p-menubar-item-color: #ffffff;
+  --p-menubar-item-focus-color: #ffffff;
+  --p-menubar-item-active-color: #ffffff;
+  --p-menubar-item-icon-color: #ffffff;
+  --p-menubar-item-icon-focus-color: #ffffff;
+  --p-menubar-item-icon-active-color: #ffffff;
+  --p-menubar-mobile-button-color: #ffffff;
+
+  :where(.p-menubar) {
+    background: transparent;
+    border: none;
+    color: inherit;
   }
 }
 

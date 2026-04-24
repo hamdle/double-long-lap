@@ -36,10 +36,27 @@ type ScheduleFile = { events: Array<{ event_slug: string }> };
 type EventPdfsFile = {
   events: Array<{ event_slug: string; season_year: number }>;
 };
+type SessionResultsFile = {
+  sessions: Array<{
+    season_year: number;
+    event_slug: string;
+    class_slug: string;
+    session_code: string;
+  }>;
+};
 
 const standings = readJson<StandingsFile>('standings.json');
 const schedule = readJson<ScheduleFile>('schedule.json');
 const eventPdfs = readJson<EventPdfsFile>('event-pdfs.json');
+const sessionResults = readJson<SessionResultsFile>('session-results.json');
+
+// Mirror pages/results-session.ts's sessionUrlSegment(): URL is lowercase.
+function sessionUrlSegment(sessionCode: string): string {
+  const map: Record<string, string> = {
+    P1: 'p1', P2: 'p2', TP: 'tp', Q1: 'q1', WU: 'wu', R1: 'r1', R2: 'r2',
+  };
+  return map[sessionCode] ?? sessionCode.toLowerCase();
+}
 
 // Mirror getKnownClassSlugs() — union of scraped + authored guide slugs.
 // Hard-coded list of guide-only classes here keeps the script self-contained;
@@ -100,6 +117,11 @@ const entries: SitemapEntry[] = [
     url: `${BASE}/results/${e.season_year}/${e.event_slug}`,
     changeFrequency: 'weekly' as const,
     priority: 0.7,
+  })),
+  ...sessionResults.sessions.map((s) => ({
+    url: `${BASE}/results/${s.season_year}/${s.event_slug}/${s.class_slug}/${sessionUrlSegment(s.session_code)}`,
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
   })),
   ...schedule.events.map((e) => ({
     url: `${BASE}/schedule/${e.event_slug}`,

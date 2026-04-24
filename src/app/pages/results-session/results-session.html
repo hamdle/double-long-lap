@@ -1,0 +1,95 @@
+@if (notFound()) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <h1>Session not found</h1>
+        <p class="u-text-muted">
+          We don&rsquo;t have data for <code>{{ eventSlug() }}</code> /
+          <code>{{ classSlug() }}</code> / <code>{{ session() }}</code> in the
+          <span class="dll-num">{{ resolvedYear() }}</span> season yet.
+        </p>
+        <p>
+          <a [routerLink]="['/results']">← Back to results</a>
+        </p>
+      </div>
+    </div>
+  </section>
+} @else {
+  <dll-filter-chrome
+    mode="results-session"
+    [year]="resolvedYear()"
+    [eventSlug]="eventSlug()"
+    [classSlug]="classSlug()"
+    [session]="session()"
+    [classOptions]="classOptions()"
+    [sessionOptions]="sessionOptions()"
+  />
+
+  @if (displayEvent(); as event) {
+    <dll-event-hero
+      [event]="event"
+      [roundNumber]="roundNumber()"
+      [seasonYear]="resolvedYear()"
+      [trackCode]="trackCode()"
+    />
+  }
+
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-12">
+        <header class="dll-results-session__header">
+          <div>
+            <p class="eyebrow u-text-muted">
+              {{ className() }} · {{ sessionResult()?.session_label ?? sessionCode() }}
+            </p>
+            <h1 class="dll-results-session__title">
+              {{ sessionResult()?.session_label ?? 'Session' }}
+            </h1>
+          </div>
+          <button
+            type="button"
+            class="dll-results-session__copy"
+            (click)="copyDeepLink()"
+            [attr.aria-label]="copyState() === 'copied' ? 'Deep link copied' : 'Copy deep link'"
+          >
+            <span class="pi pi-link" aria-hidden="true"></span>
+            {{ copyState() === 'copied' ? 'Copied' : 'Copy link' }}
+          </button>
+        </header>
+
+        @if (sessionResult(); as result) {
+          <dll-classification-table [session]="result" />
+          @if (result.source_url) {
+            <p class="dll-results-session__source u-text-muted">
+              <small>
+                Parsed from the official MotoAmerica PDF.
+                <a [href]="result.source_url" target="_blank" rel="noopener noreferrer">
+                  View the original ↗
+                </a>
+              </small>
+            </p>
+          }
+        } @else {
+          <div class="dll-results-session__empty">
+            <p class="eyebrow">No structured classification</p>
+            <p>
+              We don&rsquo;t have a parsed classification for this session yet — MotoAmerica
+              may not have published its PDF, or the parser hasn&rsquo;t caught up. Grab the
+              official session PDFs below.
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  @if (classPdfs().length > 0) {
+    <section class="strip strip--shallow">
+      <div class="row">
+        <div class="col-12">
+          <dll-pdf-downloads heading="PDF downloads" [pdfs]="classPdfs()" />
+        </div>
+      </div>
+    </section>
+  }
+}

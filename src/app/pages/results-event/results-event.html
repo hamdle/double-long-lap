@@ -26,19 +26,42 @@
     />
   }
 
-  <section class="strip strip--shallow">
-    <div class="row">
-      <div class="col-10">
-        <div class="dll-results-event__notice">
-          <p class="eyebrow u-text-muted">Phase 1 · PDF archive</p>
-          <p>
-            Structured per-session classification is coming in the next sprint — until then, the
-            official MotoAmerica PDFs are the source of truth for every session at this round.
-          </p>
+  @if (parsedClasses().length > 0) {
+    <section class="strip strip--shallow">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="dll-results-event__heading">Classifications</h2>
+          <ul class="dll-results-event__classes" role="list">
+            @for (cls of parsedClasses(); track cls.slug) {
+              <li class="dll-results-event__class">
+                <a
+                  class="dll-results-event__class-link dll-card--hover"
+                  [routerLink]="['/results', resolvedYear(), eventSlug(), cls.slug]"
+                >
+                  <span class="dll-results-event__class-label">{{ cls.label }}</span>
+                  <span class="dll-results-event__session-count">
+                    <span class="dll-num">{{ cls.sessions.length }}</span> sessions
+                  </span>
+                </a>
+                <ul class="dll-results-event__sessions" role="list">
+                  @for (sess of cls.sessions; track sess.code) {
+                    <li>
+                      <a
+                        class="dll-results-event__session-chip"
+                        [routerLink]="['/results', resolvedYear(), eventSlug(), cls.slug, sess.url]"
+                      >
+                        {{ sess.label }}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              </li>
+            }
+          </ul>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  }
 
   <section class="strip strip--shallow">
     <div class="row">

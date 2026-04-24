@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { flagEmoji } from '../../data/country';
 import type { ScheduleEvent } from '../../data/data';
-import { formatDateRange } from '../../data/event-dates';
+import { formatDateRange, stateOf } from '../../data/event-dates';
 
 // Event-results hero. Displays a "ROUND NN · YEAR" kicker, the event title,
 // circuit + country flag, and the date range.
@@ -69,4 +69,13 @@ export class EventHero {
   });
 
   readonly fallbackLabel = computed<string>(() => this.trackCode() ?? this.event().event_slug);
+
+  // Event is "live" when today falls between start_date and end_date. Drives
+  // the red LIVE pill overlay — one of the few places brand red is used as
+  // a fill rather than an accent line, per the style-refresh reservation.
+  readonly isLive = computed<boolean>(() => {
+    const e = this.event();
+    if (!e.start_date || !e.end_date) return false;
+    return stateOf(e, new Date()) === 'live';
+  });
 }

@@ -1,0 +1,170 @@
+.dll-classification {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dll-classification__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+// Header — uppercase eyebrow-style labels, quiet bottom rule.
+.dll-classification__head th {
+  position: sticky;
+  top: 0;
+  padding: var(--dll-sp-sm) var(--dll-sp-md);
+  text-align: left;
+  font-family: var(--dll-font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 60%, transparent);
+  background: var(--dll-surface-50);
+  border-bottom: 1px solid var(--dll-surface-200);
+}
+
+html.is-dark .dll-classification__head th {
+  background: var(--dll-surface-900);
+  border-bottom-color: var(--dll-surface-700);
+}
+
+// Numeric columns — right-aligned, tabular digits.
+.dll-classification__col-num,
+.dll-classification__cell-num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.dll-classification__col-make,
+.dll-classification__cell-make {
+  text-align: center;
+  font-family: var(--dll-font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+// Position column — the 4px manufacturer stripe sits on the inset-left of
+// this cell. Stripe color is supplied via per-row CSS custom props set in TS.
+.dll-classification__cell-pos {
+  position: relative;
+  padding-left: calc(var(--dll-sp-md) + 6px);
+  font-weight: 600;
+  text-align: right;
+  box-shadow: inset 4px 0 0 0 var(--dll-stripe-light, transparent);
+}
+
+// Position change since Race 1 (shown on R2 rows only). Green ▲N for gains,
+// red ▼N for losses; sits inline after the position number as a quiet chip.
+.dll-classification__delta {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 5px;
+  font-family: var(--dll-font-display);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  border-radius: var(--dll-radius-pill);
+  vertical-align: 1px;
+
+  &--up {
+    background: color-mix(in srgb, #1f9d55 16%, transparent);
+    color: #158a45;
+  }
+  &--down {
+    background: color-mix(in srgb, #c81919 16%, transparent);
+    color: #b1151a;
+  }
+}
+
+html.is-dark .dll-classification__delta--up {
+  background: color-mix(in srgb, #55d38e 20%, transparent);
+  color: #7cecad;
+}
+
+html.is-dark .dll-classification__delta--down {
+  background: color-mix(in srgb, #ff6a6a 22%, transparent);
+  color: #ff9091;
+}
+
+html.is-dark .dll-classification__cell-pos {
+  box-shadow: inset 4px 0 0 0 var(--dll-stripe-dark, transparent);
+}
+
+// Body rows — tight vertical rhythm, subtle bottom rule, hover surface lift.
+.dll-classification__row td {
+  padding: var(--dll-sp-sm) var(--dll-sp-md);
+  border-bottom: 1px solid var(--dll-surface-100);
+  vertical-align: middle;
+}
+
+html.is-dark .dll-classification__row td {
+  border-bottom-color: var(--dll-surface-800);
+}
+
+.dll-classification__row:hover td {
+  background: var(--dll-surface-50);
+}
+
+html.is-dark .dll-classification__row:hover td {
+  background: var(--dll-surface-800);
+}
+
+// Rider column — name primary, team secondary (sub-line).
+.dll-classification__cell-rider {
+  min-width: 220px;
+}
+
+.dll-classification__rider-name {
+  display: block;
+  font-weight: 600;
+}
+
+.dll-classification__rider-team {
+  display: block;
+  font-size: 0.8125rem;
+  color: color-mix(in srgb, currentColor 65%, transparent);
+}
+
+// "Not classified" divider row — full-width eyebrow, no hover.
+.dll-classification__divider td {
+  padding: var(--dll-sp-md) var(--dll-sp-md) var(--dll-sp-xs);
+  border-bottom: none;
+
+  .eyebrow {
+    color: color-mix(in srgb, currentColor 50%, transparent);
+  }
+}
+
+.dll-classification__divider:hover td {
+  background: transparent;
+}
+
+// DNF rows read quieter than classified ones — they're archival, not the story.
+.dll-classification__row--dnf td {
+  color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
+.dll-classification__row--dnf .dll-classification__rider-team {
+  color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+// Mobile — hide the Total column (race view) and In-lap column (qual view)
+// to keep the key signals (Gap, Best lap, Pts) on-screen.
+@media (max-width: 720px) {
+  .dll-classification__col-total,
+  .dll-classification__col-inlap {
+    display: none;
+  }
+  .dll-classification__cell-rider {
+    min-width: 160px;
+  }
+  .dll-classification__head th,
+  .dll-classification__row td {
+    padding: var(--dll-sp-xs) var(--dll-sp-sm);
+    font-size: 0.8125rem;
+  }
+}

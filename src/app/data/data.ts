@@ -3,7 +3,7 @@ import {
   getClassGuideSupplement,
   type ClassGuideSupplement,
 } from './class-guides';
-import { CLASS_RULES, EVENT_PDFS, ROSTERS, SCHEDULE, STANDINGS } from './generated';
+import { CLASS_RULES, EVENT_PDFS, ROSTERS, SCHEDULE, SESSION_RESULTS, STANDINGS } from './generated';
 import { slugify } from './slug';
 import type {
   ClassGridRider,
@@ -18,6 +18,10 @@ import type {
   RostersFile,
   ScheduleEvent,
   ScheduleFile,
+  SessionResult,
+  SessionResultRow,
+  SessionResultStatus,
+  SessionResultsFile,
   StandingsFile,
 } from './data-types';
 
@@ -34,6 +38,10 @@ export type {
   RostersFile,
   ScheduleEvent,
   ScheduleFile,
+  SessionResult,
+  SessionResultRow,
+  SessionResultStatus,
+  SessionResultsFile,
   StandingsFile,
 };
 
@@ -299,6 +307,58 @@ export function getEventPdfRounds(year: number): EventPdfGroup[] {
     .filter((g) => g.season_year === year)
     .slice()
     .sort((a, b) => a.round_number - b.round_number);
+}
+
+// ─── Session results ────────────────────────────────────────────────────────
+
+export function getSessionResults(): SessionResultsFile {
+  return SESSION_RESULTS;
+}
+
+// Lookup a single parsed session. Returns null when (year, event, class,
+// session) has no parsed classification (either not published yet, or
+// published but not yet re-scraped).
+export function getSessionResult(
+  year: number,
+  eventSlug: string,
+  classSlug: string,
+  sessionCode: string,
+): SessionResult | null {
+  return (
+    SESSION_RESULTS.sessions.find(
+      (s) =>
+        s.season_year === year &&
+        s.event_slug === eventSlug &&
+        s.class_slug === classSlug &&
+        s.session_code === sessionCode,
+    ) ?? null
+  );
+}
+
+// Sessions we have parsed for a (year, event, class). Drives the Session
+// dropdown in filter-chrome results mode — only offer sessions that actually
+// resolve to a classification table.
+export function getSessionResultsForClass(
+  year: number,
+  eventSlug: string,
+  classSlug: string,
+): SessionResult[] {
+  return SESSION_RESULTS.sessions.filter(
+    (s) =>
+      s.season_year === year &&
+      s.event_slug === eventSlug &&
+      s.class_slug === classSlug,
+  );
+}
+
+// Classes we've parsed sessions for at a given event. Drives the Class
+// dropdown in filter-chrome results mode.
+export function getClassSlugsWithSessions(year: number, eventSlug: string): string[] {
+  const slugs = new Set<string>();
+  for (const s of SESSION_RESULTS.sessions) {
+    if (s.season_year === year && s.event_slug === eventSlug) slugs.add(s.class_slug);
+  }
+  return Array.from(slugs);
 }
 
 // The most-recent event we have PDFs for (highest year, highest round number).

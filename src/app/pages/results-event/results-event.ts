@@ -1,12 +1,17 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { EventHero } from '../../components/event-hero/event-hero';
 import { FilterChrome } from '../../components/filter-chrome/filter-chrome';
 import { PdfDownloads } from '../../components/pdf-downloads/pdf-downloads';
 import {
+  getClassGuide,
+  getClassSlugsWithSessions,
   getCurrentSeasonYear,
   getEventPdfGroup,
   getSchedule,
+  getSessionResultsForClass,
 } from '../../data/data';
+import { sessionUrlSegment } from '../results-session/results-session';
 import { SeoService } from '../../seo/seo.service';
 
 // Phase 1 results-event page: filter chrome + event hero + PDF block, with a
@@ -14,7 +19,7 @@ import { SeoService } from '../../seo/seo.service';
 // phase. No classification table yet — the PDF list is the main payload.
 @Component({
   selector: 'dll-results-event',
-  imports: [EventHero, FilterChrome, PdfDownloads],
+  imports: [RouterLink, EventHero, FilterChrome, PdfDownloads],
   templateUrl: './results-event.html',
   styleUrl: './results-event.scss',
 })
@@ -70,6 +75,33 @@ export class ResultsEvent {
   );
 
   readonly pdfs = computed(() => this.pdfGroup()?.pdfs ?? []);
+
+  // Classes we've parsed structured classifications for at this event, with
+  // a link to each session we have. Populates the "Classifications" block
+  // the user uses to drill into per-session tables.
+  readonly parsedClasses = computed<
+    Array<{
+      slug: string;
+      label: string;
+      sessions: Array<{ code: string; label: string; url: string }>;
+    }>
+  >(() => {
+    const year = this.resolvedYear();
+    const slug = this.eventSlug();
+    const slugs = getClassSlugsWithSessions(year, slug);
+    return slugs.map((classSlug) => {
+      const sessions = getSessionResultsForClass(year, slug, classSlug).map((s) => ({
+        code: s.session_code,
+        label: s.session_label,
+        url: sessionUrlSegment(s.session_code),
+      }));
+      return {
+        slug: classSlug,
+        label: getClassGuide(classSlug)?.display_name ?? classSlug,
+        sessions,
+      };
+    });
+  });
 
   constructor() {
     effect(() => {

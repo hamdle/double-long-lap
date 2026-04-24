@@ -5,7 +5,9 @@ import {
   getEventPdfs,
   getKnownClassSlugs,
   getSchedule,
+  getSessionResults,
 } from './data/data';
+import { sessionUrlSegment } from './pages/results-session/results-session';
 import { TRAVEL_GUIDE_SLUGS } from './data/travel-guides';
 
 // Prerender every route at build time. Parameterized paths enumerate their
@@ -50,6 +52,43 @@ export const serverRoutes: ServerRoute[] = [
       getEventPdfs().events.map((e) => ({
         year: String(e.season_year),
         eventSlug: e.event_slug,
+      })),
+  },
+  {
+    // Class-level redirect: /results/:year/:event/:classSlug picks the best
+    // default session. Prerender each unique (year, event, class) we have at
+    // least one session for, so the redirect target is always baked in.
+    path: 'results/:year/:eventSlug/:classSlug',
+    renderMode: RenderMode.Prerender,
+    fallback: PrerenderFallback.None,
+    getPrerenderParams: async () => {
+      const seen = new Set<string>();
+      const params: Array<{ year: string; eventSlug: string; classSlug: string }> = [];
+      for (const s of getSessionResults().sessions) {
+        const key = `${s.season_year}|${s.event_slug}|${s.class_slug}`;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        params.push({
+          year: String(s.season_year),
+          eventSlug: s.event_slug,
+          classSlug: s.class_slug,
+        });
+      }
+      return params;
+    },
+  },
+  {
+    // Per-session classification page: every (year × event × class × session)
+    // we've parsed. Everything else (unparsed sessions) never gets a URL.
+    path: 'results/:year/:eventSlug/:classSlug/:session',
+    renderMode: RenderMode.Prerender,
+    fallback: PrerenderFallback.None,
+    getPrerenderParams: async () =>
+      getSessionResults().sessions.map((s) => ({
+        year: String(s.season_year),
+        eventSlug: s.event_slug,
+        classSlug: s.class_slug,
+        session: sessionUrlSegment(s.session_code),
       })),
   },
   {

@@ -68,10 +68,47 @@
   width: 100%;
 }
 
+.dll-event-hero__top {
+  display: flex;
+  align-items: center;
+  gap: var(--dll-sp-md);
+  flex-wrap: wrap;
+}
+
 .dll-event-hero__kicker {
   margin: 0;
   color: rgba(255, 255, 255, 0.7);
   font-size: 0.75rem;
+}
+
+// LIVE pill — solid brand-red, white text, pill-radius, Archivo uppercase.
+// One of the reserved "red as fill" slots per the style-refresh decision.
+.dll-event-hero__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  background: var(--p-primary-500);
+  color: #ffffff;
+  border-radius: var(--dll-radius-pill);
+  font-family: var(--dll-font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dll-event-hero__live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: dll-event-hero-live-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes dll-event-hero-live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
 
 .dll-event-hero__title {

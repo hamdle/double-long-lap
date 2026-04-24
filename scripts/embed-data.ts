@@ -26,6 +26,7 @@ const SOURCES: Source[] = [
   { name: 'classes.json', constName: 'CLASS_RULES', typeName: 'ClassRulesFile' },
   { name: 'riders.json', constName: 'ROSTERS', typeName: 'RostersFile' },
   { name: 'event-pdfs.json', constName: 'EVENT_PDFS', typeName: 'EventPdfsFile' },
+  { name: 'session-results.json', constName: 'SESSION_RESULTS', typeName: 'SessionResultsFile' },
 ];
 
 function readJson(name: string): unknown {
@@ -57,6 +58,7 @@ function main(): void {
     '  ClassRulesFile,',
     '  RostersFile,',
     '  EventPdfsFile,',
+    '  SessionResultsFile,',
     "} from './data-types';",
     '',
   ].join('\n');

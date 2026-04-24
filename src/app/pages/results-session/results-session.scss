@@ -1,0 +1,67 @@
+.dll-results-session__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--dll-sp-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--dll-sp-lg);
+}
+
+.dll-results-session__copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-family: var(--dll-font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: inherit;
+  background: var(--dll-surface-100);
+  border: 1px solid var(--dll-surface-200);
+  border-radius: var(--dll-radius-pill);
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dll-surface-200);
+    border-color: var(--dll-surface-300);
+  }
+}
+
+html.is-dark .dll-results-session__copy {
+  background: var(--dll-surface-800);
+  border-color: var(--dll-surface-700);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--dll-surface-700);
+    border-color: var(--dll-surface-600);
+  }
+}
+
+.dll-results-session__title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.dll-results-session__source {
+  margin-top: var(--dll-sp-md);
+}
+
+.dll-results-session__empty {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dll-sp-xs);
+  padding: var(--dll-sp-lg);
+  background: var(--dll-info-bg);
+  border-left: 3px solid var(--dll-info-border);
+  border-radius: var(--dll-radius-xs);
+
+  p {
+    margin: 0;
+  }
+}

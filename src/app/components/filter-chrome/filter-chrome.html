@@ -38,23 +38,7 @@
       />
     </label>
 
-    @if (mode() === 'standings') {
-      <label class="dll-filter-chrome__field">
-        <span class="dll-filter-chrome__label">Class</span>
-        <p-select
-          styleClass="dll-filter-dropdown"
-          [options]="classOptions()"
-          optionLabel="label"
-          optionValue="slug"
-          [ngModel]="classSlug()"
-          (onChange)="onClassChange($event.value)"
-          placeholder="Pick a class"
-          appendTo="body"
-        />
-      </label>
-    }
-
-    @if (mode() === 'results') {
+    @if (showEvent()) {
       <label class="dll-filter-chrome__field">
         <span class="dll-filter-chrome__label">Event</span>
         <p-select
@@ -65,6 +49,38 @@
           [ngModel]="eventSlug()"
           (onChange)="onEventChange($event.value)"
           placeholder="Pick a round"
+          appendTo="body"
+        />
+      </label>
+    }
+
+    @if (showClass()) {
+      <label class="dll-filter-chrome__field">
+        <span class="dll-filter-chrome__label">Class</span>
+        <p-select
+          styleClass="dll-filter-dropdown"
+          [options]="resolvedClassOptions()"
+          optionLabel="label"
+          optionValue="slug"
+          [ngModel]="classSlug()"
+          (onChange)="onClassChange($event.value)"
+          placeholder="Pick a class"
+          appendTo="body"
+        />
+      </label>
+    }
+
+    @if (showSession()) {
+      <label class="dll-filter-chrome__field">
+        <span class="dll-filter-chrome__label">Session</span>
+        <p-select
+          styleClass="dll-filter-dropdown"
+          [options]="sessionOptions()"
+          optionLabel="label"
+          optionValue="url"
+          [ngModel]="session()"
+          (onChange)="onSessionChange($event.value)"
+          placeholder="Pick a session"
           appendTo="body"
         />
       </label>

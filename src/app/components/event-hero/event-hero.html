@@ -27,9 +27,17 @@
   }
 
   <div class="dll-event-hero__content">
-    @if (kicker(); as k) {
-      <p class="dll-round-tag dll-event-hero__kicker">{{ k }}</p>
-    }
+    <div class="dll-event-hero__top">
+      @if (kicker(); as k) {
+        <p class="dll-round-tag dll-event-hero__kicker">{{ k }}</p>
+      }
+      @if (isLive()) {
+        <span class="dll-event-hero__live" aria-label="Session in progress">
+          <span class="dll-event-hero__live-dot" aria-hidden="true"></span>
+          LIVE
+        </span>
+      }
+    </div>
     <h1 class="display-1 dll-event-hero__title">{{ event().title }}</h1>
     <p class="dll-event-hero__meta">
       @if (flag(); as f) {

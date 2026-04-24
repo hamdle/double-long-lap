@@ -147,6 +147,55 @@ export type EventPdfsFile = {
   events: EventPdfGroup[];
 };
 
+// Structured per-session classification, produced by scrape-session-results.ts
+// which runs each MotoAmerica _res.pdf through pdftotext -tsv and assigns
+// words to columns by bounding-box x-coordinate. Mirrors the MotoGP-style
+// table: Pos, rider, team, bike make, times, gap, laps-down.
+export type SessionResultStatus = 'classified' | 'dnf' | 'dns' | 'dsq' | 'lapped';
+
+export type SessionResultRow = {
+  // Null for non-classified rows (DNF/DSQ/DNS). Lapped finishers keep their
+  // final position from the classification PDF.
+  position: number | null;
+  status: SessionResultStatus;
+  rider_name: string;
+  rider_number: number | null;
+  team: string | null;
+  // MA publishes a 3-letter make code (YAM, BMW, DUC, SUZ, HON, KTM, ...).
+  // The classification-table component uses this to pick the left-edge
+  // manufacturer stripe colour.
+  bike_make: string | null;
+  best_lap_ms: number | null;
+  total_time_ms: number | null;
+  gap_to_leader_ms: number | null;
+  // Non-null when the gap reads "1 Lap" / "2 Laps" rather than a time.
+  laps_down: number | null;
+  // Qualifying/practice only: lap number on which the best lap was set.
+  best_lap_in_lap: number | null;
+};
+
+export type SessionResult = {
+  series: string;
+  season_year: number;
+  round_number: number;
+  event_slug: string;
+  track_code: string;
+  class_slug: string;
+  class_code: string;
+  // MA session codes: P1, P2, TP (timed practice), Q1, WU (warm up), R1, R2.
+  session_code: string;
+  session_label: string;
+  source_url: string;
+  scraped_at: string;
+  rows: SessionResultRow[];
+};
+
+export type SessionResultsFile = {
+  series: string;
+  scraped_at: string;
+  sessions: SessionResult[];
+};
+
 // A single grid row for a class — merges points (from top-6 scrape) with roster
 // detail (number, team, nationality, bike). Either side may be null; a rider
 // listed in the roster but not in the points sheet shows a blank position/points,

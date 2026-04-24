@@ -1,0 +1,118 @@
+<div class="dll-classification">
+  <table class="dll-classification__table" role="grid">
+    <thead>
+      <tr class="dll-classification__head">
+        <th scope="col" class="dll-classification__col-pos">Pos</th>
+        <th scope="col" class="dll-classification__col-num">#</th>
+        <th scope="col" class="dll-classification__col-rider">Rider</th>
+        <th scope="col" class="dll-classification__col-make">Bike</th>
+        @if (kind() === 'race') {
+          <th scope="col" class="dll-classification__col-num dll-num">Gap</th>
+          <th scope="col" class="dll-classification__col-num dll-num dll-classification__col-total">Total</th>
+          <th scope="col" class="dll-classification__col-num dll-num">Best lap</th>
+          @if (awardsPoints()) {
+            <th scope="col" class="dll-classification__col-num dll-num">Pts</th>
+          }
+        } @else {
+          <th scope="col" class="dll-classification__col-num dll-num">Best lap</th>
+          <th scope="col" class="dll-classification__col-num dll-num dll-classification__col-inlap">In</th>
+          <th scope="col" class="dll-classification__col-num dll-num">Gap</th>
+        }
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (row of classifiedRows(); track row.rider_number ?? row.rider_name) {
+        <tr class="dll-classification__row" [style]="stripeStyle(row)">
+          <td class="dll-classification__cell-pos dll-num">
+            {{ row.positionLabel }}
+            @if (row.positionDelta != null && row.positionDelta !== 0) {
+              <span
+                class="dll-classification__delta"
+                [class.dll-classification__delta--up]="row.positionDelta > 0"
+                [class.dll-classification__delta--down]="row.positionDelta < 0"
+                [attr.aria-label]="
+                  row.positionDelta > 0
+                    ? 'Gained ' + row.positionDelta + ' positions since Race 1'
+                    : 'Lost ' + (-row.positionDelta) + ' positions since Race 1'
+                "
+                >{{ row.positionDelta > 0 ? '▲' : '▼' }}{{ row.positionDelta > 0 ? row.positionDelta : -row.positionDelta }}</span
+              >
+            }
+          </td>
+          <td class="dll-classification__cell-num dll-num">{{ row.rider_number ?? '' }}</td>
+          <td class="dll-classification__cell-rider">
+            <span class="dll-classification__rider-name">{{ row.rider_name }}</span>
+            @if (row.team) {
+              <span class="dll-classification__rider-team">{{ row.team }}</span>
+            }
+          </td>
+          <td class="dll-classification__cell-make">{{ row.bike_make ?? '' }}</td>
+          @if (kind() === 'race') {
+            <td class="dll-classification__cell-num dll-num">{{ row.gapLabel }}</td>
+            <td class="dll-classification__cell-num dll-num dll-classification__col-total">{{ row.totalTimeLabel }}</td>
+            <td class="dll-classification__cell-num dll-num">{{ row.bestLapLabel }}</td>
+            @if (awardsPoints()) {
+              <td class="dll-classification__cell-num dll-num">{{ row.points ?? '' }}</td>
+            }
+          } @else {
+            <td class="dll-classification__cell-num dll-num">{{ row.bestLapLabel }}</td>
+            <td class="dll-classification__cell-num dll-num dll-classification__col-inlap">{{ row.best_lap_in_lap ?? '' }}</td>
+            <td class="dll-classification__cell-num dll-num">{{ row.gapLabel }}</td>
+          }
+        </tr>
+      }
+
+      @if (unclassifiedRows().length > 0) {
+        <tr class="dll-classification__divider">
+          <td [attr.colspan]="kind() === 'race' ? (awardsPoints() ? 8 : 7) : 7">
+            <span class="eyebrow">Not classified</span>
+          </td>
+        </tr>
+        @for (row of unclassifiedRows(); track row.rider_number ?? row.rider_name) {
+          <tr
+            class="dll-classification__row dll-classification__row--dnf"
+            [style]="stripeStyle(row)"
+          >
+            <td class="dll-classification__cell-pos dll-num">
+            {{ row.positionLabel }}
+            @if (row.positionDelta != null && row.positionDelta !== 0) {
+              <span
+                class="dll-classification__delta"
+                [class.dll-classification__delta--up]="row.positionDelta > 0"
+                [class.dll-classification__delta--down]="row.positionDelta < 0"
+                [attr.aria-label]="
+                  row.positionDelta > 0
+                    ? 'Gained ' + row.positionDelta + ' positions since Race 1'
+                    : 'Lost ' + (-row.positionDelta) + ' positions since Race 1'
+                "
+                >{{ row.positionDelta > 0 ? '▲' : '▼' }}{{ row.positionDelta > 0 ? row.positionDelta : -row.positionDelta }}</span
+              >
+            }
+          </td>
+            <td class="dll-classification__cell-num dll-num">{{ row.rider_number ?? '' }}</td>
+            <td class="dll-classification__cell-rider">
+              <span class="dll-classification__rider-name">{{ row.rider_name }}</span>
+              @if (row.team) {
+                <span class="dll-classification__rider-team">{{ row.team }}</span>
+              }
+            </td>
+            <td class="dll-classification__cell-make">{{ row.bike_make ?? '' }}</td>
+            @if (kind() === 'race') {
+              <td class="dll-classification__cell-num dll-num">{{ row.gapLabel }}</td>
+              <td class="dll-classification__cell-num dll-num dll-classification__col-total">{{ row.totalTimeLabel }}</td>
+              <td class="dll-classification__cell-num dll-num">{{ row.bestLapLabel }}</td>
+              @if (awardsPoints()) {
+                <td class="dll-classification__cell-num dll-num"></td>
+              }
+            } @else {
+              <td class="dll-classification__cell-num dll-num">{{ row.bestLapLabel }}</td>
+              <td class="dll-classification__cell-num dll-num dll-classification__col-inlap">{{ row.best_lap_in_lap ?? '' }}</td>
+              <td class="dll-classification__cell-num dll-num">{{ row.gapLabel }}</td>
+            }
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>

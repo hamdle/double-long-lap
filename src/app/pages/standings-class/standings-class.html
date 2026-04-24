@@ -11,6 +11,13 @@
     </div>
   </section>
 } @else {
+  <dll-filter-chrome
+    mode="standings"
+    [year]="resolvedYear()"
+    [classSlug]="classSlug()"
+    [classOptions]="classOptions()"
+  />
+
   <section class="strip">
     <div class="row">
       <div class="col-8">
@@ -20,11 +27,19 @@
             <span class="dll-num">{{ c.season_year }}</span> championship · Round
             <span class="dll-num">{{ c.round_number }}</span> · {{ c.track_code }}
           </p>
+        } @else {
+          <p class="eyebrow u-text-muted">
+            <span class="dll-num">{{ resolvedYear() }}</span> season · archive
+          </p>
         }
         <h1>{{ displayName() }}</h1>
-        @if (!cls()) {
+        @if (!cls() && !everScraped()) {
           <p class="u-text-muted h4">
             MotoAmerica class — no season-long standings published.
+          </p>
+        } @else if (!cls()) {
+          <p class="u-text-muted h4">
+            No structured standings for this year yet. Grab the PDFs below for the full archive.
           </p>
         }
         @if (cls()?.full_standings_pdf_url; as pdf) {
@@ -52,29 +67,40 @@
     <dll-class-guide [guide]="g" />
   }
 
-  <section class="strip strip--shallow">
-    <div class="row">
-      <div class="col-12">
-        <h2>Standings &amp; grid</h2>
-        @if (!cls() && grid().length === 0) {
-          <p class="u-text-muted">
-            This class doesn&rsquo;t publish a season-long championship — results are scored
-            per event rather than rolled up into a points table.
-          </p>
-        } @else if (grid().length === 0) {
-          <p class="u-text-muted">No rider data available for this class yet.</p>
-        } @else {
-          <dll-class-grid-table [riders]="grid()" [className]="displayName()" />
-          <p class="u-text-muted">
-            <small>
-              Tap a column header to sort. Ranked riders come from the latest points sheet;
-              unranked entries are pulled from the class roster.@if (cls()?.full_standings_pdf_url) {
-                See the PDF for the complete results.
-              }
-            </small>
-          </p>
-        }
+  @if (hasScrapedStandings()) {
+    <section class="strip strip--shallow">
+      <div class="row">
+        <div class="col-12">
+          <h2>Standings &amp; grid</h2>
+          @if (grid().length === 0) {
+            <p class="u-text-muted">No rider data available for this class yet.</p>
+          } @else {
+            <dll-class-grid-table [riders]="grid()" [className]="displayName()" />
+            <p class="u-text-muted">
+              <small>
+                Tap a column header to sort. Ranked riders come from the latest points sheet;
+                unranked entries are pulled from the class roster.@if (cls()?.full_standings_pdf_url) {
+                  See the PDF for the complete results.
+                }
+              </small>
+            </p>
+          }
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+  }
+
+  @if (classPdfs().length > 0) {
+    <section class="strip strip--shallow">
+      <div class="row">
+        <div class="col-12">
+          <dll-pdf-downloads
+            heading="PDF downloads"
+            [pdfs]="classPdfs()"
+            emptyMessage="No PDFs published for this class and year yet."
+          />
+        </div>
+      </div>
+    </section>
+  }
 }

@@ -1,0 +1,119 @@
+// Filter chrome sits between the page header and the hero. The tab row reads
+// as a breadcrumb-style section switch (red-underline on active, same visual
+// language as the header's nav state), and the filter row beneath is a row of
+// dropdown pills. Two rows, full width within the strip.
+.dll-filter-chrome {
+  display: flex;
+  flex-direction: column;
+  background: var(--dll-surface-50);
+  border-bottom: 1px solid var(--dll-surface-200);
+}
+
+html.is-dark .dll-filter-chrome {
+  background: var(--dll-surface-800);
+  border-bottom-color: var(--dll-surface-700);
+}
+
+// Tab strip — light surface, uppercase labels, red 2px underline on active.
+.dll-filter-chrome__tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--dll-sp-md);
+  padding: 0 var(--dll-sp-xl);
+  border-bottom: 1px solid var(--dll-surface-200);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+html.is-dark .dll-filter-chrome__tabs {
+  border-bottom-color: var(--dll-surface-700);
+}
+
+.dll-filter-chrome__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--dll-sp-xs);
+  padding: var(--dll-sp-md) var(--dll-sp-sm);
+  font-family: var(--dll-font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, currentColor 65%, transparent);
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 120ms ease, border-color 120ms ease;
+
+  &:hover:not(.dll-filter-chrome__tab--disabled) {
+    color: inherit;
+  }
+
+  &--active {
+    color: inherit;
+    border-bottom-color: var(--p-primary-500);
+  }
+
+  &--disabled {
+    color: color-mix(in srgb, currentColor 35%, transparent);
+    cursor: default;
+  }
+}
+
+.dll-filter-chrome__tab-note {
+  margin-left: 4px;
+  padding: 1px 6px;
+  font-family: var(--dll-font-body);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 60%, transparent);
+  background: var(--dll-surface-100);
+  border-radius: var(--dll-radius-pill);
+}
+
+html.is-dark .dll-filter-chrome__tab-note {
+  background: var(--dll-surface-700);
+}
+
+// Filter row — dropdown pills, tabular numerals in values.
+.dll-filter-chrome__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dll-sp-md) var(--dll-sp-lg);
+  padding: var(--dll-sp-md) var(--dll-sp-xl);
+}
+
+.dll-filter-chrome__field {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.dll-filter-chrome__label {
+  font-family: var(--dll-font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 60%, transparent);
+}
+
+// Dropdown pill styling — relaxed radius, tabular digits in the label.
+// ::ng-deep reaches into p-select's template, scoped to our class.
+:host ::ng-deep .dll-filter-dropdown {
+  min-width: 160px;
+
+  .p-select {
+    --p-select-border-radius: var(--dll-radius-lg);
+    font-weight: 500;
+  }
+
+  .p-select-label {
+    font-family: var(--dll-font-body);
+    font-feature-settings: 'tnum' 1, 'lnum' 1;
+  }
+}

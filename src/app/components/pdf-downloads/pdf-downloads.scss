@@ -1,0 +1,139 @@
+.dll-pdf-downloads {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dll-sp-md);
+}
+
+.dll-pdf-downloads__heading {
+  margin: 0;
+  color: color-mix(in srgb, currentColor 60%, transparent);
+}
+
+.dll-pdf-downloads__empty {
+  margin: 0;
+  padding: var(--dll-sp-lg);
+  background: var(--dll-surface-50);
+  border: 1px dashed var(--dll-surface-200);
+  border-radius: var(--dll-radius-md);
+  text-align: center;
+}
+
+html.is-dark .dll-pdf-downloads__empty {
+  background: var(--dll-surface-800);
+  border-color: var(--dll-surface-700);
+}
+
+// Segmented switcher — reuses the footer theme-toggle token set. Checked
+// state is a solid dark pill on light bg; inverts under dark mode.
+:host ::ng-deep .dll-pdf-downloads__switcher {
+  --p-togglebutton-background: transparent;
+  --p-togglebutton-border-color: transparent;
+  --p-togglebutton-color: color-mix(in srgb, currentColor 70%, transparent);
+  --p-togglebutton-hover-background: var(--dll-surface-200);
+  --p-togglebutton-hover-color: inherit;
+  --p-togglebutton-checked-background: var(--dll-surface-900);
+  --p-togglebutton-checked-color: #ffffff;
+  --p-togglebutton-checked-border-color: var(--dll-surface-900);
+  --p-togglebutton-border-radius: var(--dll-radius-md);
+  --p-togglebutton-padding: var(--dll-sp-sm) var(--dll-sp-md);
+
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 2px;
+  background: var(--dll-surface-100);
+  border: 1px solid var(--dll-surface-200);
+  border-radius: var(--dll-radius-md);
+  align-self: flex-start;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+html.is-dark :host ::ng-deep .dll-pdf-downloads__switcher,
+:host-context(html.is-dark) ::ng-deep .dll-pdf-downloads__switcher {
+  --p-togglebutton-hover-background: var(--dll-surface-700);
+  --p-togglebutton-checked-background: #ffffff;
+  --p-togglebutton-checked-color: var(--dll-surface-900);
+  --p-togglebutton-checked-border-color: #ffffff;
+  background: var(--dll-surface-800);
+  border-color: var(--dll-surface-700);
+}
+
+.dll-pdf-downloads__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--dll-sp-sm);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.dll-pdf-downloads__row {
+  margin: 0;
+}
+
+.dll-pdf-downloads__link {
+  display: flex;
+  align-items: center;
+  gap: var(--dll-sp-md);
+  padding: var(--dll-sp-md) var(--dll-sp-lg);
+  background: var(--dll-surface-50);
+  border: 1px solid var(--dll-surface-200);
+  border-radius: var(--dll-radius-md);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: var(--dll-shadow-2);
+    border-color: var(--dll-surface-300);
+  }
+}
+
+html.is-dark .dll-pdf-downloads__link {
+  background: var(--dll-surface-800);
+  border-color: var(--dll-surface-700);
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--dll-surface-600);
+  }
+}
+
+.dll-pdf-downloads__icon {
+  font-size: 1.25rem;
+  color: var(--p-primary-500);
+  flex-shrink: 0;
+}
+
+.dll-pdf-downloads__text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.dll-pdf-downloads__label {
+  font-family: var(--dll-font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.dll-pdf-downloads__meta {
+  font-family: var(--dll-font-display);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, currentColor 60%, transparent);
+}
+
+.dll-pdf-downloads__chevron {
+  font-size: 0.875rem;
+  color: color-mix(in srgb, currentColor 50%, transparent);
+  flex-shrink: 0;
+}

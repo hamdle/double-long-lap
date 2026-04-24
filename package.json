@@ -18,6 +18,7 @@
     "scrape:schedule": "tsx scrapers/scrape-schedule.ts",
     "scrape:classes": "tsx scrapers/scrape-classes.ts",
     "scrape:riders": "tsx scrapers/scrape-riders.ts",
+    "scrape:event-pdfs": "tsx scrapers/scrape-event-pdfs.ts",
     "packet:stats": "tsx scrapers/generate-stats-packet.ts"
   },
   "private": true,

@@ -1,0 +1,126 @@
+// The event hero is a full-bleed dark block (ink foreground, white content).
+// Two display modes:
+//   - photo: caller supplied an imageUrl → the inline style binding sets
+//     background-image with a dark gradient on top for legibility.
+//   - fallback (Phase 1): dark ink block with the track code rendered as an
+//     oversized watermark and a generic circuit-silhouette SVG as a subtle
+//     accent. Per-track silhouettes + photos arrive in a later sourcing pass.
+.dll-event-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--dll-ink);
+  color: var(--dll-ink-fg);
+  padding: var(--dll-sp-4xl) var(--dll-sp-xl);
+  min-height: 280px;
+  display: flex;
+  align-items: flex-end;
+
+  &--photo {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}
+
+.dll-event-hero__fallback {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: block;
+  color: var(--dll-ink-fg);
+}
+
+// Oversized track-code watermark — Archivo 700 at low opacity sits bottom-right,
+// reading as a quiet telemetry label rather than a page title.
+.dll-event-hero__watermark {
+  position: absolute;
+  right: var(--dll-sp-xl);
+  bottom: calc(-1 * var(--dll-sp-xl));
+  font-family: var(--dll-font-display);
+  font-weight: 700;
+  font-size: clamp(5rem, 18vw, 12rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+.dll-event-hero__silhouette {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  width: 100%;
+  height: 40%;
+  color: rgba(255, 255, 255, 0.12);
+}
+
+// Content sits on top of the fallback decoration, left-aligned with a max
+// width so the title doesn't collide with the watermark on wide screens.
+.dll-event-hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--dll-sp-sm);
+  max-width: 720px;
+  width: 100%;
+}
+
+.dll-event-hero__kicker {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+}
+
+.dll-event-hero__title {
+  margin: 0;
+  color: #ffffff;
+  // Override default .display-1 margin from global h1 rule.
+  &.display-1 {
+    margin: 0;
+  }
+}
+
+.dll-event-hero__meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--dll-sp-sm);
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.dll-event-hero__flag {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.dll-event-hero__circuit {
+  font-weight: 500;
+}
+
+.dll-event-hero__divider {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.dll-event-hero__dates {
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .dll-event-hero {
+    padding: var(--dll-sp-3xl) var(--dll-sp-lg);
+    min-height: 220px;
+  }
+  .dll-event-hero__title.display-1 {
+    font-size: 2.25rem;
+    line-height: 1.1;
+  }
+  .dll-event-hero__watermark {
+    font-size: 6rem;
+    right: var(--dll-sp-md);
+  }
+}

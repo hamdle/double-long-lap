@@ -1,0 +1,16 @@
+.dll-results-event__notice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dll-sp-xs);
+  padding: var(--dll-sp-md) var(--dll-sp-lg);
+  background: var(--dll-info-bg);
+  border-left: 3px solid var(--dll-info-border);
+  border-radius: var(--dll-radius-xs);
+
+  p {
+    margin: 0;
+  }
+  p.eyebrow {
+    margin: 0;
+  }
+}

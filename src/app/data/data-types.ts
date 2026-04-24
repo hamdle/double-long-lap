@@ -111,6 +111,42 @@ export type RostersFile = {
   riders: RosterRider[];
 };
 
+// One downloadable PDF published by MotoAmerica for a given event. PDFs live on
+// motoamericaregistration.com under /Results/{year}/{trackCode}/ and follow the
+// filename pattern {yearShort}_{roundNum}_{trackCode}_{classCode}_{sessionCode}_{category}.pdf
+// e.g. 26_4_RDATL_SBK_R2_res.pdf → 2026 / Atlanta / Superbike / Race 2 / Classification.
+// Championship-wide PDFs (not tied to a single session) use session_code 'PTS'.
+export type EventPdf = {
+  url: string;
+  // Human-readable label shown in the UI, e.g. "Classification", "Lap Chart".
+  label: string;
+  // MA-native category segment from the filename, e.g. 'res', 'lap', 'lapchart',
+  // 'grid', 'points', 'sbcpts', 'seg', 'fseg', 'allrep', 'entry'.
+  category: string;
+  // Class fields: null when the PDF is event-wide (e.g. overall entry list).
+  class_slug: string | null;
+  class_code: string | null;
+  // Session fields: null when the PDF is class-wide (e.g. season-long points).
+  session_code: string | null;
+  session_label: string | null;
+};
+
+export type EventPdfGroup = {
+  event_slug: string;
+  season_year: number;
+  round_number: number;     // matches URL segment — MA's chronological order within the year
+  track_code: string;       // 'RDATL', 'RDBAR', etc.
+  title: string;            // e.g. "2026 MotoAmerica Superbikes at Atlanta"
+  pdfs: EventPdf[];
+};
+
+export type EventPdfsFile = {
+  series: string;
+  source_url: string;
+  scraped_at: string;
+  events: EventPdfGroup[];
+};
+
 // A single grid row for a class — merges points (from top-6 scrape) with roster
 // detail (number, team, nationality, bike). Either side may be null; a rider
 // listed in the roster but not in the points sheet shows a blank position/points,

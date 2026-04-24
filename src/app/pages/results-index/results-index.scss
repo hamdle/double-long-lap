@@ -1,0 +1,102 @@
+// "Most recent round" jump card — full-width, dark-ink treatment so it reads
+// as a primary CTA. Mirrors the `.dll-card--hover` lift used elsewhere.
+.dll-results-index__jump {
+  display: flex;
+  align-items: center;
+  gap: var(--dll-sp-xl);
+  padding: var(--dll-sp-xl);
+  background: var(--dll-ink);
+  color: var(--dll-ink-fg);
+  border-radius: var(--dll-radius-lg);
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--dll-ink-fg);
+  }
+}
+
+.dll-results-index__jump-label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dll-sp-xs);
+  flex: 1;
+  min-width: 0;
+}
+
+.dll-results-index__jump-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 650;
+  color: #ffffff;
+}
+
+.dll-results-index__jump-meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--dll-sp-sm);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+}
+
+.dll-results-index__jump-arrow {
+  font-size: 1.25rem;
+  color: var(--p-primary-500);
+  flex-shrink: 0;
+}
+
+// Per-year event grid.
+.dll-results-index__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--dll-sp-md);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.dll-results-index__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dll-sp-xs);
+  padding: var(--dll-sp-lg);
+  background: var(--dll-surface-50);
+  border: 1px solid var(--dll-surface-200);
+  border-radius: var(--dll-radius-md);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: var(--dll-shadow-2);
+    border-color: var(--dll-surface-300);
+  }
+}
+
+html.is-dark .dll-results-index__card {
+  background: var(--dll-surface-800);
+  border-color: var(--dll-surface-700);
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--dll-surface-600);
+  }
+}
+
+.dll-results-index__round {
+  color: color-mix(in srgb, currentColor 60%, transparent);
+}
+
+.dll-results-index__card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.dll-results-index__card-meta {
+  font-size: 0.8125rem;
+  color: color-mix(in srgb, currentColor 65%, transparent);
+}

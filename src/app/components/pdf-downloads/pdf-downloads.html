@@ -1,0 +1,45 @@
+<section class="dll-pdf-downloads">
+  @if (heading(); as h) {
+    <h2 class="dll-pdf-downloads__heading eyebrow">{{ h }}</h2>
+  }
+
+  @if (pdfs().length === 0) {
+    <p class="dll-pdf-downloads__empty u-text-muted">{{ emptyMessage() }}</p>
+  } @else {
+    @if (switcherVisible()) {
+      <p-selectButton
+        styleClass="dll-pdf-downloads__switcher"
+        [options]="switcherOptions()"
+        optionLabel="label"
+        optionValue="value"
+        [ngModel]="activeGroupKey()"
+        (ngModelChange)="setActiveGroup($event)"
+        [allowEmpty]="false"
+      />
+    }
+
+    @if (activeGroup(); as group) {
+      <ul class="dll-pdf-downloads__list" role="list">
+        @for (pdf of group.pdfs; track pdf.url) {
+          <li class="dll-pdf-downloads__row">
+            <a
+              class="dll-pdf-downloads__link dll-card--hover"
+              [href]="pdf.url"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="dll-pdf-downloads__icon pi pi-file-pdf" aria-hidden="true"></span>
+              <span class="dll-pdf-downloads__text">
+                <span class="dll-pdf-downloads__label">{{ pdf.label }}</span>
+                @if (pdf.class_code; as code) {
+                  <span class="dll-pdf-downloads__meta">{{ code }}</span>
+                }
+              </span>
+              <span class="dll-pdf-downloads__chevron pi pi-arrow-up-right" aria-hidden="true"></span>
+            </a>
+          </li>
+        }
+      </ul>
+    }
+  }
+</section>

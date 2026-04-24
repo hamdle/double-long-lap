@@ -1,17 +1,86 @@
+<dll-filter-chrome
+  mode="results"
+  [year]="currentYear"
+  [eventSlug]="mostRecent?.event_slug ?? null"
+/>
+
 <section class="strip">
   <div class="row">
-    <div class="col-8">
+    <div class="col-10">
       <h1>Results</h1>
-      <p class="u-text-muted h4">Coming soon.</p>
-      <p>
-        Race-by-race results are not yet available here. In the meantime, every round links out
-        to the official MotoAmerica results on the
-        <a routerLink="/schedule">schedule page</a>, and the per-class points sheets are linked
-        from the <a routerLink="/standings">standings page</a>.
-      </p>
-      <p>
-        <p-chip label="Planned for a later sprint" />
+      <p class="u-text-muted h4">
+        Every session PDF MotoAmerica publishes, one click away. Per-session structured tables
+        land in the next sprint.
       </p>
     </div>
   </div>
 </section>
+
+@if (mostRecent; as latest) {
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-12">
+        <a
+          class="dll-results-index__jump dll-card--hover"
+          [routerLink]="['/results', latest.season_year, latest.event_slug]"
+        >
+          <div class="dll-results-index__jump-label">
+            <span class="eyebrow">Most recent round</span>
+            <h2 class="dll-results-index__jump-title">{{ latest.title }}</h2>
+            <p class="dll-results-index__jump-meta">
+              <span class="dll-num">{{ latest.season_year }}</span>
+              <span aria-hidden="true">·</span>
+              <span>Round {{ latest.round_number }}</span>
+              <span aria-hidden="true">·</span>
+              <span>{{ latest.pdfs.length }} PDF{{ latest.pdfs.length === 1 ? '' : 's' }}</span>
+            </p>
+          </div>
+          <span class="dll-results-index__jump-arrow pi pi-arrow-up-right" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+}
+
+@for (group of yearGroups(); track group.year) {
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-12">
+        <h2>
+          <span class="dll-num">{{ group.year }}</span> season
+        </h2>
+        <ul class="dll-results-index__list" role="list">
+          @for (event of group.events; track event.event_slug) {
+            <li>
+              <a
+                class="dll-results-index__card dll-card--hover"
+                [routerLink]="['/results', event.season_year, event.event_slug]"
+              >
+                <span class="dll-round-tag dll-results-index__round">
+                  Round {{ event.round_number }}
+                </span>
+                <span class="dll-results-index__card-title">{{ event.title }}</span>
+                <span class="dll-results-index__card-meta">
+                  <span class="dll-num">{{ event.pdfs.length }}</span> PDFs
+                </span>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+}
+
+@if (yearGroups().length === 0) {
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-10">
+        <p class="u-text-muted">
+          No PDF downloads indexed yet. Once we&rsquo;ve crawled MotoAmerica&rsquo;s archive this
+          page will list every round.
+        </p>
+      </div>
+    </div>
+  </section>
+}

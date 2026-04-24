@@ -30,12 +30,16 @@ function readJson<T>(name: string): T {
 }
 
 type StandingsFile = {
-  classes: Array<{ class_slug: string; top_riders: Array<{ name: string }> }>;
+  classes: Array<{ class_slug: string; top_riders: Array<{ name: string }>; season_year: number | null }>;
 };
 type ScheduleFile = { events: Array<{ event_slug: string }> };
+type EventPdfsFile = {
+  events: Array<{ event_slug: string; season_year: number }>;
+};
 
 const standings = readJson<StandingsFile>('standings.json');
 const schedule = readJson<ScheduleFile>('schedule.json');
+const eventPdfs = readJson<EventPdfsFile>('event-pdfs.json');
 
 // Mirror getKnownClassSlugs() — union of scraped + authored guide slugs.
 // Hard-coded list of guide-only classes here keeps the script self-contained;
@@ -71,17 +75,31 @@ const riderSlugs = Array.from(
   ),
 );
 
+// Years we emit year-scoped standings and results URLs for. Sourced from the
+// PDF manifest so it stays in sync with whatever the crawler actually picked
+// up.
+const contentYears = Array.from(
+  new Set(eventPdfs.events.map((e) => e.season_year)),
+).sort((a, b) => b - a);
+
 const entries: SitemapEntry[] = [
   { url: `${BASE}/`, changeFrequency: 'weekly', priority: 1 },
   { url: `${BASE}/standings`, changeFrequency: 'weekly', priority: 0.9 },
   { url: `${BASE}/schedule`, changeFrequency: 'weekly', priority: 0.9 },
   { url: `${BASE}/riders`, changeFrequency: 'weekly', priority: 0.7 },
   { url: `${BASE}/venues`, changeFrequency: 'monthly', priority: 0.7 },
-  { url: `${BASE}/results`, changeFrequency: 'weekly', priority: 0.5 },
-  ...knownClassSlugs.map((s) => ({
-    url: `${BASE}/standings/${s}`,
+  { url: `${BASE}/results`, changeFrequency: 'weekly', priority: 0.6 },
+  ...contentYears.flatMap((year) =>
+    knownClassSlugs.map((s) => ({
+      url: `${BASE}/standings/${year}/${s}`,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    })),
+  ),
+  ...eventPdfs.events.map((e) => ({
+    url: `${BASE}/results/${e.season_year}/${e.event_slug}`,
     changeFrequency: 'weekly' as const,
-    priority: 0.8,
+    priority: 0.7,
   })),
   ...schedule.events.map((e) => ({
     url: `${BASE}/schedule/${e.event_slug}`,

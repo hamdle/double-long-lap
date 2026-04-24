@@ -1,0 +1,43 @@
+<section
+  class="dll-event-hero"
+  [class.dll-event-hero--photo]="imageUrl()"
+  [style]="backgroundStyle()"
+  aria-label="Event"
+>
+  @if (!imageUrl()) {
+    <div class="dll-event-hero__fallback" aria-hidden="true">
+      <span class="dll-event-hero__watermark">{{ fallbackLabel() }}</span>
+      <svg
+        class="dll-event-hero__silhouette"
+        viewBox="0 0 800 200"
+        fill="none"
+        role="presentation"
+      >
+        <!-- Placeholder circuit silhouette — same curve for every track until
+             we source per-track SVGs. Stroke uses the ink foreground at low
+             opacity so it reads as a subtle decorative accent. -->
+        <path
+          d="M40 150 C 60 60, 160 60, 220 110 S 360 200, 440 130 S 600 60, 720 120 S 780 160, 760 170"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </div>
+  }
+
+  <div class="dll-event-hero__content">
+    @if (kicker(); as k) {
+      <p class="dll-round-tag dll-event-hero__kicker">{{ k }}</p>
+    }
+    <h1 class="display-1 dll-event-hero__title">{{ event().title }}</h1>
+    <p class="dll-event-hero__meta">
+      @if (flag(); as f) {
+        <span class="dll-event-hero__flag" aria-hidden="true">{{ f }}</span>
+      }
+      <span class="dll-event-hero__circuit">{{ circuitName() }}</span>
+      <span class="dll-event-hero__divider" aria-hidden="true">·</span>
+      <span class="dll-event-hero__dates dll-num">{{ dateRange() }}</span>
+    </p>
+  </div>
+</section>

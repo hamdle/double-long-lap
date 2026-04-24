@@ -1,0 +1,54 @@
+@if (notFound()) {
+  <section class="strip">
+    <div class="row">
+      <div class="col-8">
+        <h1>Event not found</h1>
+        <p class="u-text-muted">
+          We don&rsquo;t have results for
+          <code>{{ eventSlug() }}</code> in the <span class="dll-num">{{ resolvedYear() }}</span> season yet.
+        </p>
+      </div>
+    </div>
+  </section>
+} @else {
+  <dll-filter-chrome
+    mode="results"
+    [year]="resolvedYear()"
+    [eventSlug]="eventSlug()"
+  />
+
+  @if (displayEvent(); as event) {
+    <dll-event-hero
+      [event]="event"
+      [roundNumber]="roundNumber()"
+      [seasonYear]="resolvedYear()"
+      [trackCode]="trackCode()"
+    />
+  }
+
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-10">
+        <div class="dll-results-event__notice">
+          <p class="eyebrow u-text-muted">Phase 1 · PDF archive</p>
+          <p>
+            Structured per-session classification is coming in the next sprint — until then, the
+            official MotoAmerica PDFs are the source of truth for every session at this round.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip strip--shallow">
+    <div class="row">
+      <div class="col-12">
+        <dll-pdf-downloads
+          heading="Session downloads"
+          [pdfs]="pdfs()"
+          emptyMessage="No PDFs published for this round yet."
+        />
+      </div>
+    </div>
+  </section>
+}

@@ -3,13 +3,16 @@ import {
   getClassGuideSupplement,
   type ClassGuideSupplement,
 } from './class-guides';
-import { CLASS_RULES, ROSTERS, SCHEDULE, STANDINGS } from './generated';
+import { CLASS_RULES, EVENT_PDFS, ROSTERS, SCHEDULE, STANDINGS } from './generated';
 import { slugify } from './slug';
 import type {
   ClassGridRider,
   ClassGuide,
   ClassRulesFile,
   ClassStandings,
+  EventPdf,
+  EventPdfGroup,
+  EventPdfsFile,
   RiderProfile,
   RosterRider,
   RostersFile,
@@ -23,6 +26,9 @@ export type {
   ClassGuide,
   ClassRulesFile,
   ClassStandings,
+  EventPdf,
+  EventPdfGroup,
+  EventPdfsFile,
   RiderProfile,
   RosterRider,
   RostersFile,
@@ -42,6 +48,13 @@ export function getStandings(): StandingsFile {
   return STANDINGS;
 }
 
+// The season year the standings snapshot represents — the "current" year for
+// default routing. Sourced from the scraped data (the first class's year)
+// rather than hardcoded, so an offseason refresh automatically shifts it.
+export function getCurrentSeasonYear(): number {
+  return STANDINGS.classes.find((c) => c.season_year != null)?.season_year ?? new Date().getFullYear();
+}
+
 export function getSchedule(): ScheduleFile {
   return SCHEDULE;
 }
@@ -58,8 +71,12 @@ export function getRosterRider(slug: string): RosterRider | null {
 // (number + team + nationality + bike details), keyed by rider slug. Also
 // computes the B1 championship-math fields (gap to leader, points remaining,
 // still mathematically alive) once for the class and stamps them on every row.
-export function getClassGrid(classSlug: string): ClassGridRider[] {
-  const cls = getClassStandings(classSlug);
+// When `year` is passed, returns rows only for that scraped year; years we
+// haven't scraped (e.g. 2025) return an empty grid — the caller should fall
+// back to the PDF archive view.
+export function getClassGrid(classSlug: string, year?: number): ClassGridRider[] {
+  const cls = getClassStandings(classSlug, year);
+  if (year !== undefined && !cls) return [];
   const roster = getRoster();
   const schedule = getSchedule();
   const bySlug = new Map<string, ClassGridRider>();
@@ -176,8 +193,14 @@ export function getClassGuide(classSlug: string): ClassGuide | null {
   };
 }
 
-export function getClassStandings(classSlug: string): ClassStandings | null {
-  return STANDINGS.classes.find((c) => c.class_slug === classSlug) ?? null;
+// When `year` is passed, only returns the row if its season_year matches. Years
+// we don't have scraped standings for return null — callers should render an
+// archive-mode view (hero + PDF downloads) rather than the grid table.
+export function getClassStandings(classSlug: string, year?: number): ClassStandings | null {
+  const found = STANDINGS.classes.find((c) => c.class_slug === classSlug) ?? null;
+  if (!found) return null;
+  if (year !== undefined && found.season_year !== year) return null;
+  return found;
 }
 
 // Union of class slugs we render pages for: classes with scraped standings *and*
@@ -228,4 +251,65 @@ export function getNextEvent(today: Date = new Date()): ScheduleEvent | null {
     if (end >= today) return e;
   }
   return null;
+}
+
+// ─── PDF downloads ────────────────────────────────────────────────────────────
+
+export function getEventPdfs(): EventPdfsFile {
+  return EVENT_PDFS;
+}
+
+// Return the PDF group for a given (year, eventSlug), or null if we don't have
+// anything crawled for that pair. Event slugs match the app's schedule-slug
+// vocabulary ('atlanta', 'barber', ...); the crawler maps MA's track codes onto
+// these at scrape time.
+export function getEventPdfGroup(year: number, eventSlug: string): EventPdfGroup | null {
+  return (
+    EVENT_PDFS.events.find(
+      (g) => g.season_year === year && g.event_slug === eventSlug,
+    ) ?? null
+  );
+}
+
+// All PDFs for an event, filtered to a specific class. Pass classSlug=null to
+// get only class-wide / event-wide PDFs. Championship-points sheets (those with
+// session_code === null) are included when they match the class.
+export function getEventPdfsForClass(
+  year: number,
+  eventSlug: string,
+  classSlug: string | null,
+): EventPdf[] {
+  const group = getEventPdfGroup(year, eventSlug);
+  if (!group) return [];
+  return group.pdfs.filter((p) => p.class_slug === classSlug);
+}
+
+// Years we have any PDF data for, newest first. Drives the filter-chrome Year
+// dropdown when we don't want to advertise years with nothing behind them.
+export function getEventPdfYears(): number[] {
+  const years = new Set<number>();
+  for (const g of EVENT_PDFS.events) years.add(g.season_year);
+  return Array.from(years).sort((a, b) => b - a);
+}
+
+// Rounds for a given year, ordered chronologically (by round_number). Drives
+// the filter-chrome Event dropdown.
+export function getEventPdfRounds(year: number): EventPdfGroup[] {
+  return EVENT_PDFS.events
+    .filter((g) => g.season_year === year)
+    .slice()
+    .sort((a, b) => a.round_number - b.round_number);
+}
+
+// The most-recent event we have PDFs for (highest year, highest round number).
+// Drives the `/results` landing — we surface this as the default deep-link
+// destination so "just show me what's new" is one click.
+export function getMostRecentEventWithPdfs(): EventPdfGroup | null {
+  const events = EVENT_PDFS.events;
+  if (events.length === 0) return null;
+  return events.reduce((latest, e) => {
+    if (!latest) return e;
+    if (e.season_year !== latest.season_year) return e.season_year > latest.season_year ? e : latest;
+    return e.round_number > latest.round_number ? e : latest;
+  }, events[0]);
 }

@@ -1,0 +1,73 @@
+<nav class="dll-filter-chrome" aria-label="Results and standings filters">
+  <div class="dll-filter-chrome__tabs" role="tablist" aria-label="Section">
+    @for (tab of tabs; track tab.key) {
+      @if (tab.disabled || !tab.link) {
+        <span
+          class="dll-filter-chrome__tab dll-filter-chrome__tab--disabled"
+          role="tab"
+          aria-disabled="true"
+          [attr.aria-selected]="tab.key === activeTab()"
+          >{{ tab.label }}<small class="dll-filter-chrome__tab-note">soon</small></span
+        >
+      } @else {
+        <a
+          class="dll-filter-chrome__tab"
+          [class.dll-filter-chrome__tab--active]="tab.key === activeTab()"
+          [attr.aria-selected]="tab.key === activeTab()"
+          role="tab"
+          [routerLink]="tab.link"
+          routerLinkActive="dll-filter-chrome__tab--active"
+          [routerLinkActiveOptions]="{ exact: false }"
+          >{{ tab.label }}</a
+        >
+      }
+    }
+  </div>
+
+  <div class="dll-filter-chrome__filters">
+    <label class="dll-filter-chrome__field">
+      <span class="dll-filter-chrome__label">Year</span>
+      <p-select
+        styleClass="dll-filter-dropdown"
+        [options]="yearOptions()"
+        optionLabel="label"
+        optionValue="value"
+        [ngModel]="year()"
+        (onChange)="onYearChange($event.value)"
+        appendTo="body"
+      />
+    </label>
+
+    @if (mode() === 'standings') {
+      <label class="dll-filter-chrome__field">
+        <span class="dll-filter-chrome__label">Class</span>
+        <p-select
+          styleClass="dll-filter-dropdown"
+          [options]="classOptions()"
+          optionLabel="label"
+          optionValue="slug"
+          [ngModel]="classSlug()"
+          (onChange)="onClassChange($event.value)"
+          placeholder="Pick a class"
+          appendTo="body"
+        />
+      </label>
+    }
+
+    @if (mode() === 'results') {
+      <label class="dll-filter-chrome__field">
+        <span class="dll-filter-chrome__label">Event</span>
+        <p-select
+          styleClass="dll-filter-dropdown"
+          [options]="eventOptions()"
+          optionLabel="label"
+          optionValue="slug"
+          [ngModel]="eventSlug()"
+          (onChange)="onEventChange($event.value)"
+          placeholder="Pick a round"
+          appendTo="body"
+        />
+      </label>
+    }
+  </div>
+</nav>

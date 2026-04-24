@@ -9,7 +9,21 @@
 
         @if (!guide().image) {
           <div class="dll-class-guide__hero" aria-hidden="true">
-            {{ guide().display_name }}
+            <span class="dll-class-guide__hero-watermark">{{ guide().display_name }}</span>
+            <svg
+              class="dll-class-guide__hero-silhouette"
+              viewBox="0 0 800 200"
+              fill="none"
+              role="presentation"
+            >
+              <path
+                d="M40 150 C 60 60, 160 60, 220 110 S 360 200, 440 130 S 600 60, 720 120 S 780 160, 760 170"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span class="dll-class-guide__hero-label">Class guide</span>
           </div>
         }
 

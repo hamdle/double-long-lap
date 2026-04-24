@@ -5,6 +5,7 @@ const steps: Array<{ name: string; cmd: string; args: string[] }> = [
   { name: 'scrape schedule', cmd: 'npx', args: ['tsx', 'scrapers/scrape-schedule.ts'] },
   { name: 'scrape classes', cmd: 'npx', args: ['tsx', 'scrapers/scrape-classes.ts'] },
   { name: 'scrape riders', cmd: 'npx', args: ['tsx', 'scrapers/scrape-riders.ts'] },
+  { name: 'scrape event PDFs', cmd: 'npx', args: ['tsx', 'scrapers/scrape-event-pdfs.ts'] },
   { name: 'generate stats packet', cmd: 'npx', args: ['tsx', 'scrapers/generate-stats-packet.ts'] },
 ];
 
@@ -29,6 +30,7 @@ async function main(): Promise<void> {
   console.log('  - scrapers/output/schedule.json');
   console.log('  - scrapers/output/classes.json');
   console.log('  - scrapers/output/riders.json');
+  console.log('  - scrapers/output/event-pdfs.json');
   console.log('  - scrapers/output/stats-packet.md');
   console.log('\nRe-run `npm run build` to embed the new data into the Angular bundle.');
 }

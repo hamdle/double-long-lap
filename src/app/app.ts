@@ -18,9 +18,8 @@ export class App {
   private readonly theme = inject(ThemeService);
 
   readonly menu: MenuItem[] = [
-    { label: 'Standings', icon: 'pi pi-trophy', routerLink: '/standings' },
+    { label: 'Standings & Results', icon: 'pi pi-trophy', routerLink: '/standings/2026/superbike' },
     { label: 'Schedule', icon: 'pi pi-calendar', routerLink: '/schedule' },
-    { label: 'Results', icon: 'pi pi-flag', routerLink: '/results' },
     { label: 'Riders', icon: 'pi pi-users', routerLink: '/riders' },
     { label: 'Venues', icon: 'pi pi-map-marker', routerLink: '/venues' },
   ];

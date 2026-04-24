@@ -34,6 +34,11 @@ html.is-dark .dll-pdf-downloads__empty {
   --p-togglebutton-checked-background: var(--dll-surface-900);
   --p-togglebutton-checked-color: #ffffff;
   --p-togglebutton-checked-border-color: var(--dll-surface-900);
+  // PrimeNG 21 stacks a second background on .p-togglebutton-content; without
+  // this override its default surface color shows through and the checked pill
+  // looks hollow.
+  --p-togglebutton-content-checked-background: var(--dll-surface-900);
+  --p-togglebutton-content-checked-shadow: none;
   --p-togglebutton-border-radius: var(--dll-radius-md);
   --p-togglebutton-padding: var(--dll-sp-sm) var(--dll-sp-md);
 
@@ -55,6 +60,7 @@ html.is-dark :host ::ng-deep .dll-pdf-downloads__switcher,
   --p-togglebutton-checked-background: #ffffff;
   --p-togglebutton-checked-color: var(--dll-surface-900);
   --p-togglebutton-checked-border-color: #ffffff;
+  --p-togglebutton-content-checked-background: #ffffff;
   background: var(--dll-surface-800);
   border-color: var(--dll-surface-700);
 }

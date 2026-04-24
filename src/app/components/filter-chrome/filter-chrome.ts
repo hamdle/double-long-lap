@@ -84,7 +84,7 @@ export class FilterChrome {
 
   readonly tabs: Array<{ key: TabKey; label: string; link: string | null; disabled: boolean }> = [
     { key: 'results', label: 'Results', link: '/results', disabled: false },
-    { key: 'standings', label: 'Standings', link: '/standings', disabled: false },
+    { key: 'standings', label: 'Standings', link: '/standings/2026/superbike', disabled: false },
     { key: 'records', label: 'Records', link: null, disabled: true },
   ];
 

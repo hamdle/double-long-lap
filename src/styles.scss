@@ -397,6 +397,13 @@
     --p-togglebutton-checked-background: #ffffff;
     --p-togglebutton-checked-color: #000000;
     --p-togglebutton-checked-border-color: #ffffff;
+    // PrimeNG 21 paints a second background on the inner .p-togglebutton-content
+    // (controlled by --p-togglebutton-content-checked-background). In dark mode
+    // that token resolves to a dark surface and masks the white outer fill,
+    // leaving a thin white frame around a dark pill with unreadable black text.
+    // Force the inner layer to inherit the outer checked fill.
+    --p-togglebutton-content-checked-background: #ffffff;
+    --p-togglebutton-content-checked-shadow: none;
     --p-togglebutton-icon-color: rgba(255, 255, 255, 0.72);
     --p-togglebutton-icon-hover-color: #ffffff;
     --p-togglebutton-icon-checked-color: #000000;
